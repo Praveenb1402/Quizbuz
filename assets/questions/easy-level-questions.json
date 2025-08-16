@@ -1,0 +1,840 @@
+{
+  "easy": [
+    {
+      "Question": "Which planet is known as the 'Red Planet'?",
+      "A": "Earth",
+      "B": "Venus",
+      "C": "Mars",
+      "D": "Jupiter",
+      "Ans": "Mars"
+    },
+    {
+      "Question": "What do you call a baby cow?",
+      "A": "Calf",
+      "B": "Lamb",
+      "C": "Kid",
+      "D": "Puppy",
+      "Ans": "Calf"
+    },
+    {
+      "Question": "Which ocean is the largest?",
+      "A": "Indian Ocean",
+      "B": "Atlantic Ocean",
+      "C": "Arctic Ocean",
+      "D": "Pacific Ocean",
+      "Ans": "Pacific Ocean"
+    },
+    {
+      "Question": "What is the capital of France?",
+      "A": "Berlin",
+      "B": "Madrid",
+      "C": "Paris",
+      "D": "London",
+      "Ans": "Paris"
+    },
+    {
+      "Question": "Which bird can swim but cannot fly?",
+      "A": "Eagle",
+      "B": "Parrot",
+      "C": "Ostrich",
+      "D": "Penguin",
+      "Ans": "Penguin"
+    },
+    {
+      "Question": "What is the largest mammal?",
+      "A": "Elephant",
+      "B": "Blue Whale",
+      "C": "Giraffe",
+      "D": "Hippo",
+      "Ans": "Blue Whale"
+    },
+    {
+      "Question": "Who discovered gravity?",
+      "A": "Albert Einstein",
+      "B": "Isaac Newton",
+      "C": "Galileo Galilei",
+      "D": "Charles Darwin",
+      "Ans": "Isaac Newton"
+    },
+    {
+      "Question": "Which country is famous for pyramids?",
+      "A": "Italy",
+      "B": "Greece",
+      "C": "Egypt",
+      "D": "Turkey",
+      "Ans": "Egypt"
+    },
+    {
+      "Question": "What is the process by which plants make their food?",
+      "A": "Photosynthesis",
+      "B": "Digestion",
+      "C": "Respiration",
+      "D": "Circulation",
+      "Ans": "Photosynthesis"
+    },
+    {
+      "Question": "Which one of the following is a preposition?",
+      "A": "Run",
+      "B": "Under",
+      "C": "Happy",
+      "D": "Jump",
+      "Ans": "Under"
+    },
+    {
+      "Question": "Who was the first President of India?",
+      "A": "Dr. Rajendra Prasad",
+      "B": "Jawaharlal Nehru",
+      "C": "Sardar Patel",
+      "D": "Indira Gandhi",
+      "Ans": "Dr. Rajendra Prasad"
+    },
+    {
+      "Question": "What is the past tense of 'write'?",
+      "A": "Writes",
+      "B": "Writing",
+      "C": "Wrote",
+      "D": "Written",
+      "Ans": "Wrote"
+    },
+    {
+      "Question": "Which state is known as the 'Spice Garden of India'?",
+      "A": "Kerala",
+      "B": "Tamil Nadu",
+      "C": "Karnataka",
+      "D": "Andhra Pradesh",
+      "Ans": "Kerala"
+    },
+    {
+      "Question": "Choose the correct spelling.",
+      "A": "Receieve",
+      "B": "Recieve",
+      "C": "Receive",
+      "D": "Receve",
+      "Ans": "Receive"
+    },
+    {
+      "Question": "Who is known as the 'Nightangle of India'?",
+      "A": "Sarojini Naidu",
+      "B": "Indira Gandhi",
+      "C": "Mother Teresa",
+      "D": "Rani Lakshmibai",
+      "Ans": "Sarojini Naidu"
+    },
+    {
+      "Question": "Which one of the following is a relative pronoun?",
+      "A": "He",
+      "B": "She",
+      "C": "That",
+      "D": "It",
+      "Ans": "That"
+    },
+    {
+      "Question": "What is the currency of India?",
+      "A": "Rupee",
+      "B": "Taka",
+      "C": "Dollar",
+      "D": "Yen",
+      "Ans": "Rupee"
+    },
+    {
+      "Question": "Which of the following is an indefinite article?",
+      "A": "A",
+      "B": "The",
+      "C": "An",
+      "D": "This",
+      "Ans": "A"
+    },
+    {
+      "Question": "The Red Fort is located in which city?",
+      "A": "Mumbai",
+      "B": "Delhi",
+      "C": "Kolkata",
+      "D": "Jaipur",
+      "Ans": "Delhi"
+    },
+    {
+      "Question": "Which tense is 'She is reading'?",
+      "A": "Past",
+      "B": "Present",
+      "C": "Future",
+      "D": "Continuous",
+      "Ans": "Present"
+    },
+    {
+      "Question": "What is the plural form of 'goose'?",
+      "A": "Geese",
+      "B": "Gooses",
+      "C": "Geeses",
+      "D": "Goose",
+      "Ans": "Geese"
+    },
+    {
+      "Question": "Which Indian state is known as the 'Land of Five Rivers'?",
+      "A": "Punjab",
+      "B": "Haryana",
+      "C": "Rajasthan",
+      "D": "Bihar",
+      "Ans": "Punjab"
+    },
+    {
+      "Question": "Which one of the following is a modal verb?",
+      "A": "Is",
+      "B": "Are",
+      "C": "Can",
+      "D": "Was",
+      "Ans": "Can"
+    },
+    {
+      "Question": "Who composed the Indian national anthem?",
+      "A": "Rabindranath Tagore",
+      "B": "Bankim Chandra Chattopadhyay",
+      "C": "Sarojini Naidu",
+      "D": "Javed Akhtar",
+      "Ans": "Rabindranath Tagore"
+    },
+    {
+      "Question": "Which word is a synonym for 'happy'?",
+      "A": "Sad",
+      "B": "Joyful",
+      "C": "Upset",
+      "D": "Miserable",
+      "Ans": "Joyful"
+    },
+    {
+      "Question": "The Indian Parliament consists of how many houses?",
+      "A": "One",
+      "B": "Two",
+      "C": "Three",
+      "D": "Four",
+      "Ans": "Two"
+    },
+    {
+      "Question": "Which of the following is a conjunction?",
+      "A": "And",
+      "B": "House",
+      "C": "Jump",
+      "D": "Fast",
+      "Ans": "And"
+    },
+    {
+      "Question": "Tsunamis are not caused by",
+      "A": "Hurricanes",
+      "B": "Earthquakes",
+      "C": "Undersea landslides",
+      "D": "Volcanic eruptions",
+      "Ans": "Hurricanes"
+    },
+    {
+      "Question": "Indus river originates in",
+      "A": "Kinnaur",
+      "B": "Ladakh",
+      "C": "Nepal",
+      "D": "Tibet",
+      "Ans": "Tibet"
+    },
+    {
+      "Question": "Which one of the following river flows between Vindhyan and Satpura ranges?",
+      "A": "Narmada",
+      "B": "Mahanadi",
+      "C": "Son",
+      "D": "Netravati",
+      "Ans": "Narmada"
+    },
+    {
+      "Question": "Which planet is closest to the Sun?",
+      "A": "Venus",
+      "B": "Mercury",
+      "C": "Mars",
+      "D": "Jupiter",
+      "Ans": "Mercury"
+    },
+    {
+      "Question": "Who is known as the 'Father of the Nation' in India?",
+      "A": "Subhas Chandra Bose",
+      "B": "Mahatma Gandhi",
+      "C": "Jawaharlal Nehru",
+      "D": "Sardar Vallabhbhai Patel",
+      "Ans": "Mahatma Gandhi"
+    },
+    {
+      "Question": "Which gas is most abundant in the Earth's atmosphere?",
+      "A": "Oxygen",
+      "B": "Carbon Dioxide",
+      "C": "Nitrogen",
+      "D": "Argon",
+      "Ans": "Nitrogen"
+    },
+    {
+      "Question": "What is the capital of Australia?",
+      "A": "Sydney",
+      "B": "Melbourne",
+      "C": "Canberra",
+      "D": "Brisbane",
+      "Ans": "Canberra"
+    }
+  ],
+  "medium": [
+    {
+      "Question": "Which one of the following river flows between Vindhyan and Satpura ranges?",
+      "A": "Narmada",
+      "B": "Mahanadi",
+      "C": "Son",
+      "D": "Netravati",
+      "Ans": "Narmada"
+    },
+    {
+      "Question": "What is the powerhouse of the cell?",
+      "A": "Ribosome",
+      "B": "Mitochondria",
+      "C": "Nucleus",
+      "D": "Endoplasmic Reticulum",
+      "Ans": "Mitochondria"
+    },
+    {
+      "Question": "Which country is known as the 'Land of the Rising Sun'?",
+      "A": "China",
+      "B": "Japan",
+      "C": "South Korea",
+      "D": "Vietnam",
+      "Ans": "Japan"
+    },
+    {
+      "Question": "Which of the following elements is a noble gas?",
+      "A": "Oxygen",
+      "B": "Helium",
+      "C": "Sodium",
+      "D": "Chlorine",
+      "Ans": "Helium"
+    },
+    {
+      "Question": "What is the currency of Brazil?",
+      "A": "Peso",
+      "B": "Real",
+      "C": "Dollar",
+      "D": "Euro",
+      "Ans": "Real"
+    },
+    {
+      "Question": "Who painted the Mona Lisa?",
+      "A": "Vincent van Gogh",
+      "B": "Leonardo da Vinci",
+      "C": "Pablo Picasso",
+      "D": "Michelangelo",
+      "Ans": "Leonardo da Vinci"
+    },
+    {
+      "Question": "Which planet has the largest volcano in the solar system named Olympus Mons?",
+      "A": "Earth",
+      "B": "Mars",
+      "C": "Venus",
+      "D": "Jupiter",
+      "Ans": "Mars"
+    },
+    {
+      "Question": "What is the chemical symbol for gold?",
+      "A": "Au",
+      "B": "Ag",
+      "C": "Cu",
+      "D": "Fe",
+      "Ans": "Au"
+    },
+    {
+      "Question": "Who was the first woman to win a Nobel Prize?",
+      "A": "Marie Curie",
+      "B": "Rosalind Franklin",
+      "C": "Dorothy Hodgkin",
+      "D": "Barbara McClintock",
+      "Ans": "Marie Curie"
+    },
+    {
+      "Question": "In which year did World War I begin?",
+      "A": "1910",
+      "B": "1914",
+      "C": "1917",
+      "D": "1920",
+      "Ans": "1914"
+    },
+    {
+      "Question": "Which instrument is used to measure atmospheric pressure?",
+      "A": "Hygrometer",
+      "B": "Barometer",
+      "C": "Anemometer",
+      "D": "Spectrometer",
+      "Ans": "Barometer"
+    },
+    {
+      "Question": "Who discovered penicillin?",
+      "A": "Alexander Fleming",
+      "B": "Marie Curie",
+      "C": "Albert Einstein",
+      "D": "Isaac Newton",
+      "Ans": "Alexander Fleming"
+    },
+    {
+      "Question": "What is the largest mammal in the world?",
+      "A": "African Elephant",
+      "B": "Blue Whale",
+      "C": "Giraffe",
+      "D": "Hippopotamus",
+      "Ans": "Blue Whale"
+    },
+    {
+      "Question": "Which country is known as the 'Land of Fire and Ice'?",
+      "A": "Greenland",
+      "B": "Iceland",
+      "C": "Finland",
+      "D": "Norway",
+      "Ans": "Iceland"
+    },
+    {
+      "Question": "What is the chemical symbol for silver?",
+      "A": "Si",
+      "B": "Ag",
+      "C": "Sr",
+      "D": "Sn",
+      "Ans": "Ag"
+    },
+    {
+      "Question": "Who composed the famous symphony 'Symphony No. 9'?",
+      "A": "Mozart",
+      "B": "Beethoven",
+      "C": "Bach",
+      "D": "Tchaikovsky",
+      "Ans": "Beethoven"
+    },
+    {
+      "Question": "Which layer of the Earth's atmosphere is closest to the Earth's surface?",
+      "A": "Stratosphere",
+      "B": "Troposphere",
+      "C": "Mesosphere",
+      "D": "Thermosphere",
+      "Ans": "Troposphere"
+    },
+    {
+      "Question": "Which river is known as the 'Lifeline of Madhya Pradesh'?",
+      "A": "Yamuna",
+      "B": "Ganga",
+      "C": "Narmada",
+      "D": "Krishna",
+      "Ans": "Narmada"
+    },
+    {
+      "Question": "Who is known as the 'Father of the Indian Constitution'?",
+      "A": "Mahatma Gandhi",
+      "B": "Jawaharlal Nehru",
+      "C": "Sardar Vallabhbhai Patel",
+      "D": "B.R. Ambedkar",
+      "Ans": "B.R. Ambedkar"
+    },
+    {
+      "Question": "Which city is known as the 'Silicon Valley of India'?",
+      "A": "Mumbai",
+      "B": "Hyderabad",
+      "C": "Bangalore",
+      "D": "Pune",
+      "Ans": "Bangalore"
+    },
+    {
+      "Question": "Who was the first woman Prime Minister of India?",
+      "A": "Sonia Gandhi",
+      "B": "Indira Gandhi",
+      "C": "Pratibha Patil",
+      "D": "Mayawati",
+      "Ans": "Indira Gandhi"
+    },
+    {
+      "Question": "Which Indian state is known as the 'Land of Five Rivers'?",
+      "A": "Punjab",
+      "B": "Haryana",
+      "C": "Rajasthan",
+      "D": "Gujarat",
+      "Ans": "Punjab"
+    },
+    {
+      "Question": "Who composed the national anthem of India?",
+      "A": "Rabindranath Tagore",
+      "B": "Bankim Chandra Chattopadhyay",
+      "C": "Subramania Bharathi",
+      "D": "Sarojini Naidu",
+      "Ans": "Rabindranath Tagore"
+    },
+    {
+      "Question": "Which state in India is the largest producer of coffee?",
+      "A": "Kerala",
+      "B": "Karnataka",
+      "C": "Tamil Nadu",
+      "D": "Andhra Pradesh",
+      "Ans": "Karnataka"
+    },
+    {
+      "Question": "Who is known as the 'Missile Man of India'?",
+      "A": "Atal Bihari Vajpayee",
+      "B": "Narendra Modi",
+      "C": "A.P.J. Abdul Kalam",
+      "D": "Rajiv Gandhi",
+      "Ans": "A.P.J. Abdul Kalam"
+    },
+    {
+      "Question": "What is the currency of India?",
+      "A": "Rupee",
+      "B": "Taka",
+      "C": "Rupiah",
+      "D": "Yuan",
+      "Ans": "Rupee"
+    },
+    {
+      "Question": "Which Indian festival is known as the 'Festival of Lights'?",
+      "A": "Holi",
+      "B": "Diwali",
+      "C": "Dussehra",
+      "D": "Eid",
+      "Ans": "Diwali"
+    }
+  ],
+  "hard": [
+    {
+      "Question": "Which of the following is a Turing-complete programming language?",
+      "A": "C",
+      "B": "Assembly",
+      "C": "Brainfuck",
+      "D": "Markdown",
+      "Ans": "C"
+    },
+    {
+      "Question": "Who formulated the laws of gravitation?",
+      "A": "Albert Einstein",
+      "B": "Isaac Newton",
+      "C": "Galileo Galilei",
+      "D": "Stephen Hawking",
+      "Ans": "Isaac Newton"
+    },
+    {
+      "Question": "Which of the following is not a prime number?",
+      "A": "11",
+      "B": "21",
+      "C": "23",
+      "D": "29",
+      "Ans": "21"
+    },
+    {
+      "Question": "Who composed the Symphony No. 9 in D minor, Op. 125?",
+      "A": "Wolfgang Amadeus Mozart",
+      "B": "Ludwig van Beethoven",
+      "C": "Johann Sebastian Bach",
+      "D": "Franz Schubert",
+      "Ans": "Ludwig van Beethoven"
+    },
+    {
+      "Question": "What is the boiling point of water at standard atmospheric pressure?",
+      "A": "90°C",
+      "B": "100°C",
+      "C": "110°C",
+      "D": "120°C",
+      "Ans": "100°C"
+    },
+    {
+      "Question": "Who is the author of the book 'The Wealth of Nations'?",
+      "A": "Adam Smith",
+      "B": "Karl Marx",
+      "C": "John Maynard Keynes",
+      "D": "Friedrich Hayek",
+      "Ans": "Adam Smith"
+    },
+    {
+      "Question": "What does the 'Big Bang Theory' explain?",
+      "A": "Origin of life on Earth",
+      "B": "Expansion of the universe from a singular point",
+      "C": "Formation of black holes",
+      "D": "Evolution of species",
+      "Ans": "Expansion of the universe from a singular point"
+    },
+    {
+      "Question": "Which of the following elements has the highest melting point?",
+      "A": "Iron",
+      "B": "Tungsten",
+      "C": "Gold",
+      "D": "Silver",
+      "Ans": "Tungsten"
+    },
+    {
+      "Question": "Who is known as the 'Father of Geometry'?",
+      "A": "Euclid",
+      "B": "Archimedes",
+      "C": "Pythagoras",
+      "D": "Aristotle",
+      "Ans": "Euclid"
+    },
+    {
+      "Question": "What is the speed of light in a vacuum?",
+      "A": "299,792,458 meters per second",
+      "B": "300,000,000 meters per second",
+      "C": "250,000,000 meters per second",
+      "D": "275,000,000 meters per second",
+      "Ans": "299,792,458 meters per second"
+    },
+    {
+      "Question": "Which programming language was developed by Bjarne Stroustrup?",
+      "A": "Java",
+      "B": "Python",
+      "C": "C++",
+      "D": "Ruby",
+      "Ans": "C++"
+    },
+    {
+      "Question": "What is the chemical formula for sulfuric acid?",
+      "A": "H2SO3",
+      "B": "H2SO4",
+      "C": "HSO3",
+      "D": "HSO4",
+      "Ans": "H2SO4"
+    },
+    {
+      "Question": "Who discovered the neutron?",
+      "A": "James Chadwick",
+      "B": "Ernest Rutherford",
+      "C": "Niels Bohr",
+      "D": "Max Planck",
+      "Ans": "James Chadwick"
+    },
+    {
+      "Question": "What is the primary function of white blood cells?",
+      "A": "Carry oxygen",
+      "B": "Fight infection",
+      "C": "Clot blood",
+      "D": "Produce insulin",
+      "Ans": "Fight infection"
+    },
+    {
+      "Question": "Which of the following is a non-renewable resource?",
+      "A": "Solar energy",
+      "B": "Wind energy",
+      "C": "Coal",
+      "D": "Hydroelectric energy",
+      "Ans": "Coal"
+    },
+    {
+      "Question": "Who developed the theory of relativity?",
+      "A": "Albert Einstein",
+      "B": "Isaac Newton",
+      "C": "Stephen Hawking",
+      "D": "Galileo Galilei",
+      "Ans": "Albert Einstein"
+    },
+    {
+      "Question": "What is the capital of Uzbekistan?",
+      "A": "Dushanbe",
+      "B": "Astana",
+      "C": "Tashkent",
+      "D": "Bishkek",
+      "Ans": "Tashkent"
+    },
+    {
+      "Question": "Who was the first Prime Minister of India?",
+      "A": "Jawaharlal Nehru",
+      "B": "Indira Gandhi",
+      "C": "Sardar Vallabhbhai Patel",
+      "D": "Morarji Desai",
+      "Ans": "Jawaharlal Nehru"
+    },
+    {
+      "Question": "Which Indian state is known as the 'God's Own Country'?",
+      "A": "Kerala",
+      "B": "Goa",
+      "C": "Himachal Pradesh",
+      "D": "Rajasthan",
+      "Ans": "Kerala"
+    },
+    {
+      "Question": "Who composed the Indian National Anthem?",
+      "A": "Rabindranath Tagore",
+      "B": "Bankim Chandra Chattopadhyay",
+      "C": "Sarojini Naidu",
+      "D": "Allama Iqbal",
+      "Ans": "Rabindranath Tagore"
+    },
+    {
+      "Question": "Which Indian city is known as the 'City of Lakes'?",
+      "A": "Udaipur",
+      "B": "Jaipur",
+      "C": "Bhopal",
+      "D": "Hyderabad",
+      "Ans": "Udaipur"
+    },
+    {
+      "Question": "Who was the first President of India?",
+      "A": "Rajendra Prasad",
+      "B": "Sarvepalli Radhakrishnan",
+      "C": "Zakir Hussain",
+      "D": "V. V. Giri",
+      "Ans": "Rajendra Prasad"
+    },
+    {
+      "Question": "In which year did India become a republic?",
+      "A": "1947",
+      "B": "1948",
+      "C": "1950",
+      "D": "1952",
+      "Ans": "1950"
+    },
+    {
+      "Question": "Which river is known as the 'Sorrow of Bihar' due to frequent floods?",
+      "A": "Ganga",
+      "B": "Yamuna",
+      "C": "Kosi",
+      "D": "Brahmaputra",
+      "Ans": "Kosi"
+    },
+    {
+      "Question": "Who was the first woman Prime Minister of India?",
+      "A": "Indira Gandhi",
+      "B": "Sonia Gandhi",
+      "C": "Pratibha Patil",
+      "D": "Sushma Swaraj",
+      "Ans": "Indira Gandhi"
+    },
+    {
+      "Question": "Which Indian city is famous for its diamond industry?",
+      "A": "Surat",
+      "B": "Mumbai",
+      "C": "Ahmedabad",
+      "D": "Jaipur",
+      "Ans": "Surat"
+    },
+    {
+      "Question": "What is the currency of India?",
+      "A": "Rupee",
+      "B": "Rupiah",
+      "C": "Taka",
+      "D": "Yuan",
+      "Ans": "Rupee"
+    },
+    {
+      "Question": "Who is known as the 'Missile Man of India'?",
+      "A": "Atal Bihari Vajpayee",
+      "B": "Dr. A.P.J. Abdul Kalam",
+      "C": "Narendra Modi",
+      "D": "Rajiv Gandhi",
+      "Ans": "Dr. A.P.J. Abdul Kalam"
+    },
+    {
+      "Question": "Which Indian state is known as the 'Land of Five Rivers'?",
+      "A": "Punjab",
+      "B": "Haryana",
+      "C": "Uttar Pradesh",
+      "D": "Rajasthan",
+      "Ans": "Punjab"
+    },
+    {
+      "Question": "What is the height of the Qutub Minar?",
+      "A": "72.5 meters",
+      "B": "78 meters",
+      "C": "82 meters",
+      "D": "88 meters",
+      "Ans": "72.5 meters"
+    },
+    {
+      "Question": "Who won the Nobel Prize in Literature from India?",
+      "A": "Rabindranath Tagore",
+      "B": "Amartya Sen",
+      "C": "Mother Teresa",
+      "D": "Kailash Satyarthi",
+      "Ans": "Rabindranath Tagore"
+    },
+    {
+      "Question": "Which Indian festival is known as the 'Festival of Lights'?",
+      "A": "Diwali",
+      "B": "Holi",
+      "C": "Eid",
+      "D": "Dussehra",
+      "Ans": "Diwali"
+    },
+    {
+      "Question": "Who is known as the 'Grand Old Man of India'?",
+      "A": "Mahatma Gandhi",
+      "B": "Bal Gangadhar Tilak",
+      "C": "Sardar Vallabhbhai Patel",
+      "D": "Jawaharlal Nehru",
+      "Ans": "Bal Gangadhar Tilak"
+    },
+    {
+      "Question": "Who wrote the famous novel 'Midnight's Children'?",
+      "A": "Vikram Seth",
+      "B": "R.K. Narayan",
+      "C": "Salman Rushdie",
+      "D": "Arundhati Roy",
+      "Ans": "Salman Rushdie"
+    },
+    {
+      "Question": "Which Indian author wrote 'The God of Small Things'?",
+      "A": "Jhumpa Lahiri",
+      "B": "Aravind Adiga",
+      "C": "Rohinton Mistry",
+      "D": "Arundhati Roy",
+      "Ans": "Arundhati Roy"
+    },
+    {
+      "Question": "Who is considered the father of modern Indian English poetry?",
+      "A": "Nissim Ezekiel",
+      "B": "Rabindranath Tagore",
+      "C": "A.K. Ramanujan",
+      "D": "Dilip Chitre",
+      "Ans": "Nissim Ezekiel"
+    },
+    {
+      "Question": "Which Indian poet wrote the poem 'The Broken Wing'?",
+      "A": "Kamala Das",
+      "B": "Sarojini Naidu",
+      "C": "Toru Dutt",
+      "D": "Amrita Pritam",
+      "Ans": "Sarojini Naidu"
+    },
+    {
+      "Question": "Who wrote the famous Indian play 'Tughlaq'?",
+      "A": "Mulk Raj Anand",
+      "B": "R.K. Narayan",
+      "C": "Girish Karnad",
+      "D": "Amitav Ghosh",
+      "Ans": "Girish Karnad"
+    },
+    {
+      "Question": "Which Indian author won the Booker Prize for the novel 'The White Tiger'?",
+      "A": "Aravind Adiga",
+      "B": "Vikram Seth",
+      "C": "Salman Rushdie",
+      "D": "Kiran Desai",
+      "Ans": "Aravind Adiga"
+    },
+    {
+      "Question": "Who is the author of 'Train to Pakistan'?",
+      "A": "Khushwant Singh",
+      "B": "R.K. Narayan",
+      "C": "Mulk Raj Anand",
+      "D": "Amitav Ghosh",
+      "Ans": "Khushwant Singh"
+    },
+    {
+      "Question": "Which Indian writer's real name is Rashid Jahan?",
+      "A": "Ismat Chughtai",
+      "B": "Amrita Pritam",
+      "C": "Mahasweta Devi",
+      "D": "Anita Desai",
+      "Ans": "Ismat Chughtai"
+    },
+    {
+      "Question": "Which Indian poetess wrote 'The Golden Threshold'?",
+      "A": "Kamala Das",
+      "B": "Sarojini Naidu",
+      "C": "Tessie Thomas",
+      "D": "Amrita Pritam",
+      "Ans": "Sarojini Naidu"
+    },
+    {
+      "Question": "Who wrote the poem 'The Rime of the Ancient Mariner'?",
+      "A": "John Keats",
+      "B": "William Wordsworth",
+      "C": "Samuel Taylor Coleridge",
+      "D": "Percy Bysshe Shelley",
+      "Ans": "Samuel Taylor Coleridge"
+    }
+  ]
+}

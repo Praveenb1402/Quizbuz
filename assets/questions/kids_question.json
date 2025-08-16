@@ -1,0 +1,404 @@
+{
+  "guess": [
+    {
+      "Question": "Which of these is a color?",
+      "A": "Jump",
+      "B": "Blue",
+      "C": "Run",
+      "D": "Sing",
+      "Ans": "Blue"
+    },
+    {
+      "Question": "What do you wear on your head?",
+      "A": "Shoe",
+      "B": "Hat",
+      "C": "Glove",
+      "D": "Socks",
+      "Ans": "Hat"
+    },
+    {
+      "Question": "Which animal says 'Moo'?",
+      "A": "Cat",
+      "B": "Dog",
+      "C": "Cow",
+      "D": "Bird",
+      "Ans": "Cow"
+    },
+    {
+      "Question": "Which month comes after July?",
+      "A": "January",
+      "B": "June",
+      "C": "August",
+      "D": "December",
+      "Ans": "August"
+    },
+    {
+      "Question": "What is the opposite of 'happy'?",
+      "A": "Sad",
+      "B": "Funny",
+      "C": "Tired",
+      "D": "Excited",
+      "Ans": "Sad"
+    },
+    {
+      "Question": "Which is the largest planet in our solar system?",
+      "A": "Earth",
+      "B": "Mars",
+      "C": "Venus",
+      "D": "Jupiter",
+      "Ans": "Jupiter"
+    },
+    {
+      "Question": "Which shape has three sides?",
+      "A": "Circle",
+      "B": "Square",
+      "C": "Triangle",
+      "D": "Rectangle",
+      "Ans": "Triangle"
+    },
+    {
+      "Question": "What color is a banana?",
+      "A": "Red",
+      "B": "Yellow",
+      "C": "Green",
+      "D": "Blue",
+      "Ans": "Yellow"
+    },
+    {
+      "Question": "Who is known as the 'Father of our Nation' in India?",
+      "A": "Mahatma Gandhi",
+      "B": "Jawaharlal Nehru",
+      "C": "Sardar Patel",
+      "D": "Rabindranath Tagore",
+      "Ans": "Mahatma Gandhi"
+    },
+    {
+      "Question": "Which bird can swim but cannot fly?",
+      "A": "Eagle",
+      "B": "Sparrow",
+      "C": "Ostrich",
+      "D": "Penguin",
+      "Ans": "Penguin"
+    },
+    {
+      "Question": "Which animal has a long trunk?",
+      "A": "Lion",
+      "B": "Elephant",
+      "C": "Tiger",
+      "D": "Giraffe",
+      "Ans": "Elephant"
+    },
+    {
+      "Question": "Which fruit is red and round?",
+      "A": "Apple",
+      "B": "Banana",
+      "C": "Orange",
+      "D": "Grapes",
+      "Ans": "Apple"
+    },
+    {
+      "Question": "What do you use to write?",
+      "A": "Book",
+      "B": "Pen",
+      "C": "Shoe",
+      "D": "Ball",
+      "Ans": "Pen"
+    },
+    {
+      "Question": "Which number comes after 5?",
+      "A": "3",
+      "B": "4",
+      "C": "6",
+      "D": "7",
+      "Ans": "6"
+    },
+    {
+      "Question": "Which of these is a type of transport?",
+      "A": "Tree",
+      "B": "Car",
+      "C": "Mountain",
+      "D": "River",
+      "Ans": "Car"
+    },
+    {
+      "Question": "Where do you live?",
+      "A": "School",
+      "B": "House",
+      "C": "Park",
+      "D": "Hospital",
+      "Ans": "House"
+    },
+    {
+      "Question": "What color is the sky?",
+      "A": "Green",
+      "B": "Blue",
+      "C": "Yellow",
+      "D": "Black",
+      "Ans": "Blue"
+    },
+    {
+      "Question": "Which of these is a fruit?",
+      "A": "Carrot",
+      "B": "Potato",
+      "C": "Tomato",
+      "D": "Onion",
+      "Ans": "Tomato"
+    },
+    {
+      "Question": "Which is the national animal of India?",
+      "A": "Lion",
+      "B": "Tiger",
+      "C": "Elephant",
+      "D": "Cow",
+      "Ans": "Tiger"
+    },
+    {
+      "Question": "What do you wear on your feet?",
+      "A": "Gloves",
+      "B": "Hat",
+      "C": "Socks",
+      "D": "Scarf",
+      "Ans": "Socks"
+    },
+    {
+      "Question": "What is 2 + 2?",
+      "A": "3",
+      "B": "4",
+      "C": "5",
+      "D": "6",
+      "Ans": "4"
+    },
+    {
+      "Question": "How many sides does a triangle have?",
+      "A": "2",
+      "B": "3",
+      "C": "4",
+      "D": "5",
+      "Ans": "3"
+    },
+    {
+      "Question": "What comes after 9 in counting?",
+      "A": "10",
+      "B": "11",
+      "C": "12",
+      "D": "13",
+      "Ans": "10"
+    },
+    {
+      "Question": "What is 5 multiplied by 3?",
+      "A": "8",
+      "B": "12",
+      "C": "15",
+      "D": "18",
+      "Ans": "15"
+    },
+    {
+      "Question": "If you have 4 apples and eat 2, how many are left?",
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "4",
+      "Ans": "2"
+    },
+    {
+      "Question": "Which is the smallest number?",
+      "A": "0",
+      "B": "1",
+      "C": "2",
+      "D": "3",
+      "Ans": "0"
+    },
+    {
+      "Question": "What is 10 divided by 2?",
+      "A": "3",
+      "B": "4",
+      "C": "5",
+      "D": "6",
+      "Ans": "5"
+    },
+    {
+      "Question": "How many sides does a square have?",
+      "A": "3",
+      "B": "4",
+      "C": "5",
+      "D": "6",
+      "Ans": "4"
+    },
+    {
+      "Question": "If you have 3 pencils and get 2 more, how many do you have?",
+      "A": "4",
+      "B": "5",
+      "C": "6",
+      "D": "7",
+      "Ans": "5"
+    },
+    {
+      "Question": "What is 7 plus 3 minus 2?",
+      "A": "6",
+      "B": "7",
+      "C": "8",
+      "D": "9",
+      "Ans": "8"
+    },
+    {
+      "Question": "How many corners does a rectangle have?",
+      "A": "2",
+      "B": "3",
+      "C": "4",
+      "D": "5",
+      "Ans": "4"
+    },
+    {
+      "Question": "What comes before 5 in counting?",
+      "A": "3",
+      "B": "4",
+      "C": "5",
+      "D": "6",
+      "Ans": "4"
+    },
+    {
+      "Question": "What is 3 multiplied by 4?",
+      "A": "7",
+      "B": "10",
+      "C": "12",
+      "D": "15",
+      "Ans": "12"
+    },
+    {
+      "Question": "If you have 6 candies and give 2 away, how many remain?",
+      "A": "2",
+      "B": "3",
+      "C": "4",
+      "D": "5",
+      "Ans": "4"
+    },
+    {
+      "Question": "Which number is greater: 7 or 5?",
+      "A": "7",
+      "B": "5",
+      "C": "Equal",
+      "D": "None",
+      "Ans": "7"
+    },
+    {
+      "Question": "How many sides does an octagon have?",
+      "A": "6",
+      "B": "7",
+      "C": "8",
+      "D": "9",
+      "Ans": "8"
+    },
+    {
+      "Question": "What is 9 divided by 3?",
+      "A": "2",
+      "B": "3",
+      "C": "4",
+      "D": "5",
+      "Ans": "3"
+    },
+    {
+      "Question": "How many weeks are in a month?",
+      "A": "2",
+      "B": "3",
+      "C": "4",
+      "D": "Varies",
+      "Ans": "Varies"
+    },
+    {
+      "Question": "What is 2 plus 2 plus 2?",
+      "A": "4",
+      "B": "5",
+      "C": "6",
+      "D": "7",
+      "Ans": "6"
+    },
+    {
+      "Question": "If you have 5 balloons and add 1 more, how many do you have?",
+      "A": "5",
+      "B": "6",
+      "C": "7",
+      "D": "8",
+      "Ans": "6"
+    },
+    {
+      "Question": "What color is the sky during the day?",
+      "A": "Red",
+      "B": "Green",
+      "C": "Blue",
+      "D": "Yellow",
+      "Ans": "Blue"
+    },
+    {
+      "Question": "Which animal says 'Meow'?",
+      "A": "Dog",
+      "B": "Cat",
+      "C": "Cow",
+      "D": "Bird",
+      "Ans": "Cat"
+    },
+    {
+      "Question": "What do we wear on our feet?",
+      "A": "Hat",
+      "B": "Glove",
+      "C": "Shoe",
+      "D": "Scarf",
+      "Ans": "Shoe"
+    },
+    {
+      "Question": "How many legs does a cat have?",
+      "A": "2",
+      "B": "4",
+      "C": "6",
+      "D": "8",
+      "Ans": "4"
+    },
+    {
+      "Question": "What do we use to write?",
+      "A": "Book",
+      "B": "Pen",
+      "C": "Ball",
+      "D": "Toy",
+      "Ans": "Pen"
+    },
+    {
+      "Question": "Which one is used for washing clothes?",
+      "A": "Broom",
+      "B": "Brush",
+      "C": "Soap",
+      "D": "Shoe",
+      "Ans": "Soap"
+    },
+    {
+      "Question": "What do we do with our eyes?",
+      "A": "Eat",
+      "B": "See",
+      "C": "Hear",
+      "D": "Smell",
+      "Ans": "See"
+    },
+    {
+      "Question": "Which fruit is yellow?",
+      "A": "Apple",
+      "B": "Banana",
+      "C": "Grapes",
+      "D": "Orange",
+      "Ans": "Banana"
+    },
+    {
+      "Question": "Where do we live?",
+      "A": "Car",
+      "B": "School",
+      "C": "House",
+      "D": "Park",
+      "Ans": "House"
+    },
+    {
+      "Question": "What do we use to drink water?",
+      "A": "Plate",
+      "B": "Cup",
+      "C": "Spoon",
+      "D": "Fork",
+      "Ans": "Cup"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+# Flutter & Dart
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+
+# Build outputs
+build/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+android/app/build/
+android/.gradle/
+android/local.properties
+
+# IDE files
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode/
+
+# Generated files
+*.log
+*.lock
+*.tmp
+*.swp
+*.DS_Store
+
+# iOS specific
+Pods/
+ios/Podfile.lock
+ios/Runner.xcworkspace/
+ios/Runner.xcarchive/
+ios/.symlinks/
+
+# Web
+web/.dart_tool/
+web/build/
+
+# Coverage reports
+coverage/
+
+# Environment files
+.env
+.env.*

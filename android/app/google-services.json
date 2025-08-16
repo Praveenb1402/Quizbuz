@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "754019585008",
+    "firebase_url": "https://quizbuzz-da502-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "quizbuzz-da502",
+    "storage_bucket": "quizbuzz-da502.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754019585008:android:3a687f7d5ec32682cd6b35",
+        "android_client_info": {
+          "package_name": "com.example.quizbuz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbg774VtaPu-RN9m1DB5DInAnGsvv1Ksk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
