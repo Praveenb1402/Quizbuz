@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:quizbuz/Bouns_packages/BounsNotifier.dart';
 import 'package:quizbuz/Bouns_packages/booster_page.dart';
 import 'package:quizbuz/Buy%20coins/buy_coins_main_page.dart';
@@ -10,6 +12,7 @@ import 'package:quizbuz/Settings/Setting_page.dart';
 import 'package:quizbuz/gesture_buttons/gest_rapidround.dart';
 import 'package:quizbuz/servies/database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'SoundEffect/ClickSounds.dart';
 import 'gesture_buttons/gest_quiz.dart';
 import 'gesture_buttons/gest_timebuzz.dart';
 
@@ -102,6 +105,8 @@ class Main_PageState extends ConsumerState<Main_Page> {
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
                       child: Column(
+                        spacing: 5,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Container(
                             margin: const EdgeInsets.only(top: 5),
@@ -120,6 +125,7 @@ class Main_PageState extends ConsumerState<Main_Page> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
+                                        SoundEffect().playSound();
                                         Navigator.popAndPushNamed(
                                             context, '/Kids_Main_Page');
                                       },
@@ -143,7 +149,8 @@ class Main_PageState extends ConsumerState<Main_Page> {
                                             Radius.circular(20)),
                                         color: Colors.white),
                                     child: IconButton(
-                                        onPressed: () {
+                                        onPressed: () async {
+                                          SoundEffect().playSound();
                                           Navigator.push(context,
                                               MaterialPageRoute(builder:
                                                   (BuildContext context) {
@@ -154,102 +161,112 @@ class Main_PageState extends ConsumerState<Main_Page> {
                               ],
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width - 175),
-                            width: 150,
-                            height: 35,
-                            decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                                color: Colors.white),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  decoration: const BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(20),
-                                          bottomLeft: Radius.circular(20))),
-                                  child: const Image(
-                                    image: AssetImage(
-                                        "assets/backgrounds/coins.png"),
-                                    width: 45,
-                                    height: 35,
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Container(
+                              margin: EdgeInsets.only(right: 5),
+                              width: 150,
+                              height: 35,
+                              decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                  color: Colors.white),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(8),
+                                    decoration: const BoxDecoration(
+                                        color: Colors.grey,
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(20),
+                                            bottomLeft: Radius.circular(20))),
+                                    child: const Image(
+                                      image: AssetImage(
+                                          "assets/backgrounds/coins.png"),
+                                      width: 30,
+                                      height: 20,
+                                    ),
                                   ),
-                                ),
-                                Consumer(
-                                  builder: (context, ref, child) {
-                                    final _totalCoins = ref.watch(TotalCoins);
-                                    return Text(
-                                      _totalCoins.toString(),
-                                      textAlign: TextAlign.center,
-                                    );
-                                  },
-                                ),
-                                IconButton(
-                                  alignment: Alignment.center,
-                                  color: Colors.grey,
-                                  onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(
-                                        builder: (BuildContext context) {
-                                      return const buy_coins_main_page();
-                                    }));
-                                  },
-                                  icon: const Icon(Icons.add_box),
-                                ),
-                              ],
+                                  Consumer(
+                                    builder: (context, ref, child) {
+                                      final _totalCoins = ref.watch(TotalCoins);
+                                      return Text(
+                                        _totalCoins.toString(),
+                                        textAlign: TextAlign.center,
+                                      );
+                                    },
+                                  ),
+                                  IconButton(
+                                    alignment: Alignment.center,
+                                    color: Colors.grey,
+                                    onPressed: () {
+                                      SoundEffect().playSound();
+                                      Navigator.push(context, MaterialPageRoute(
+                                          builder: (BuildContext context) {
+                                        return const buy_coins_main_page();
+                                      }));
+                                    },
+                                    icon: const Icon(Icons.add_box),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width - 175,
-                          bottom: 30),
-                      width: 150,
-                      height: 35,
-                      decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          color: Colors.white),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            decoration: const BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    bottomLeft: Radius.circular(20))),
-                            child: const Icon(
-                              Icons.electric_bolt,
-                              color: Colors.yellowAccent,
-                              size: 35,
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        margin: EdgeInsets.only(right: 13, bottom: 30),
+                        width: 150,
+                        height: 35,
+                        decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            color: Colors.white),
+                        child: Row(
+                          spacing: 5,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(8),
+                              decoration: const BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      bottomLeft: Radius.circular(20))),
+                              child: const Icon(
+                                Icons.electric_bolt,
+                                color: Colors.yellowAccent,
+                                size: 20,
+                              ),
                             ),
-                          ),
-                          const Expanded(
-                            child: Text(
-                              "Boosters",
-                              textAlign: TextAlign.center,
+                            const Expanded(
+                              child: Text(
+                                "Boosters",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 11),
+                              ),
                             ),
-                          ),
-                          IconButton(
-                            alignment: Alignment.center,
-                            color: Colors.grey,
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const BoosterPage()));
-                            },
-                            icon: const Icon(Icons.add_box),
-                          ),
-                        ],
+                            IconButton(
+                              alignment: Alignment.center,
+                              color: Colors.grey,
+                              onPressed: () {
+                                SoundEffect().playSound();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const BoosterPage()));
+                              },
+                              icon: const Icon(Icons.add_box),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Container(

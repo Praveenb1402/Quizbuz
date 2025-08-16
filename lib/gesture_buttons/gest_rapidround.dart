@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quizbuz/Difficulty_Level_page.dart';
 
-
+import '../SoundEffect/ClickSounds.dart';
 
 class Gest_rapid_round extends StatefulWidget {
   const Gest_rapid_round({super.key});
@@ -15,6 +15,8 @@ class _Gest_rapid_roundState extends State<Gest_rapid_round> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        SoundEffect().playSound();
+
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -24,7 +26,7 @@ class _Gest_rapid_roundState extends State<Gest_rapid_round> {
       },
       child: Container(
         decoration: const BoxDecoration(
-          color: Colors.lightBlue,
+            color: Colors.lightBlue,
             // image: DecorationImage(
             //     image: AssetImage("assets/backgrounds/rapid_background.png"),
             //     fit: BoxFit.cover),
@@ -47,10 +49,10 @@ class _Gest_rapid_roundState extends State<Gest_rapid_round> {
               ),
               Expanded(
                 child: Text(
-                  "You will be given 30 Seconds in total to answer as much as possible. One wrong answer Game Over",
-                  textAlign: TextAlign.center,style: TextStyle(
-                    fontWeight: FontWeight.bold, color: Colors.white)
-                ),
+                    "You will be given 30 Seconds in total to answer as much as possible. One wrong answer Game Over",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.white)),
               )
             ],
           ),

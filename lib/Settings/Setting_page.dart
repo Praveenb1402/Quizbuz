@@ -24,18 +24,18 @@ class _Setting_PageState extends State<Setting_Page> {
             ),
           ),
           automaticallyImplyLeading: false,
-          // backgroundColor: const Color.fromARGB(255, 253, 237, 167),
+          backgroundColor: const Color.fromARGB(255, 253, 237, 167),
           centerTitle: true),
       body: SafeArea(
           child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              // decoration: const BoxDecoration(
-              //   image: DecorationImage(
-              //       image: AssetImage(
-              //           "assets/backgrounds/main_page_backgound_normal.png"),
-              //       fit: BoxFit.cover),
-              // ),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(
+                        "assets/backgrounds/main_page_backgound_normal.png"),
+                    fit: BoxFit.cover),
+              ),
               child: SingleChildScrollView(
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(20, 0, 20, 10),
@@ -44,10 +44,10 @@ class _Setting_PageState extends State<Setting_Page> {
                       Container(
                         padding: EdgeInsets.all(10),
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                        // decoration: const BoxDecoration(
-                        //     color: Colors.white,
-                        //     borderRadius:
-                        //         BorderRadius.all(Radius.circular(10))),
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -68,10 +68,10 @@ class _Setting_PageState extends State<Setting_Page> {
                       Container(
                         padding: EdgeInsets.all(10),
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                        // decoration: const BoxDecoration(
-                        //     color: Colors.white,
-                        //     borderRadius:
-                        //         BorderRadius.all(Radius.circular(10))),
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -92,10 +92,10 @@ class _Setting_PageState extends State<Setting_Page> {
                       Container(
                         padding: EdgeInsets.all(10),
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                        // decoration: const BoxDecoration(
-                        //     color: Colors.white,
-                        //     borderRadius:
-                        //         BorderRadius.all(Radius.circular(10))),
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

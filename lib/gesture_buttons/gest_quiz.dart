@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../Difficulty_Level_page.dart';
+import '../SoundEffect/ClickSounds.dart';
 
 class Gest_quiz extends StatefulWidget {
   const Gest_quiz({super.key});
@@ -14,6 +15,7 @@ class _Gest_quizState extends State<Gest_quiz> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        SoundEffect().playSound();
         Navigator.push(
             context,
             MaterialPageRoute(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quizbuz/Difficulty_Level_page.dart';
+import 'package:quizbuz/SoundEffect/ClickSounds.dart';
 
 class Gest_timebuzz extends StatefulWidget {
   const Gest_timebuzz({super.key});
@@ -13,6 +14,7 @@ class _Gest_timebuzzState extends State<Gest_timebuzz> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        SoundEffect().playSound();
         Navigator.push(
             context,
             MaterialPageRoute(
