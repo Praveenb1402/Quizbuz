@@ -4,6 +4,7 @@ import 'dart:math' show Random;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:quizbuz/SoundEffect/ClickSounds.dart';
 import 'package:quizbuz/menu_page.dart';
 import 'package:quizbuz/servies/database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,7 +24,7 @@ class _Question_PageState extends State<Question_Page>
     with TickerProviderStateMixin {
   int _countdown = 60;
   int _freezetime = 5;
-  double _points = 0;
+  int _points = 0;
   late SharedPreferences prefs;
   double _btn_margin1 = 0;
   double _btn_margin2 = 0;
@@ -84,7 +85,7 @@ class _Question_PageState extends State<Question_Page>
         _timerchanger =
             Timer.periodic(const Duration(milliseconds: 500), (timer) {
           setState(() {
-            _points = _points - 0.5;
+            _points = _points - 1;
             if (_question_index == (_max_question! - 1)) {
               _Game_finsih_Dialogbox(context);
               _timerchanger.cancel();
@@ -145,7 +146,7 @@ class _Question_PageState extends State<Question_Page>
         _timerchanger =
             Timer.periodic(const Duration(milliseconds: 500), (timer) {
           setState(() {
-            _points = _points - 0.5;
+            _points = _points - 1;
             if (_question_index == (_max_question! - 1)) {
               _Game_finsih_Dialogbox(context);
               _timerchanger.cancel();
@@ -204,7 +205,7 @@ class _Question_PageState extends State<Question_Page>
         _timerchanger =
             Timer.periodic(const Duration(milliseconds: 500), (timer) {
           setState(() {
-            _points = _points - 0.5;
+            _points = _points - 1;
             if (_question_index == (_max_question! - 1)) {
               _Game_finsih_Dialogbox(context);
               _timerchanger.cancel();
@@ -263,7 +264,7 @@ class _Question_PageState extends State<Question_Page>
           _timerchanger =
               Timer.periodic(const Duration(milliseconds: 500), (timer) {
             setState(() {
-              _points = _points - 0.5;
+              _points = _points - 1;
               if (_question_index == (_max_question! - 1)) {
                 _Game_finsih_Dialogbox(context);
                 _timerchanger.cancel();
@@ -291,13 +292,16 @@ class _Question_PageState extends State<Question_Page>
   }
 
   void startTimer() {
+    SoundEffect().loadtimerSound();
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+
       setState(() {
         if (_countdown > 0) {
           _countdown--;
         } else {
           // Timer will be canceled once it reached 0
           _timer.cancel();
+          SoundEffect().cancelTimerSound();
           _Game_finsih_Dialogbox(context);
         }
         if (_countdown <= 10) {
@@ -319,7 +323,12 @@ class _Question_PageState extends State<Question_Page>
       uniqueNumbers = numbersSet.toList(); // Convert set to list
     });
   }
-
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    SoundEffect().cancelTimerSound();
+    super.dispose();
+  }
   @override
   void initState() {
     super.initState();
@@ -380,7 +389,8 @@ class _Question_PageState extends State<Question_Page>
                 height: MediaQuery.of(context).size.height,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('assets/backgrounds/question_page.png'),
+                        image:
+                            AssetImage('assets/backgrounds/question_page.png'),
                         fit: BoxFit.cover)),
                 child: SafeArea(
                   child: SingleChildScrollView(
@@ -505,12 +515,12 @@ class _Question_PageState extends State<Question_Page>
                                             },
                                             child: CircleAvatar(
                                               radius: 25,
-                                              backgroundImage:
-                                                  _freeze_time_lifeline != 0
-                                                      ? AssetImage(
-                                                          "assets/backgrounds/freeze.png")
-                                                      : AssetImage(
-                                                          "assets/backgrounds/no_freeze.png"),
+                                              backgroundImage: _freeze_time_lifeline !=
+                                                      0
+                                                  ? AssetImage(
+                                                      "assets/backgrounds/freeze.png")
+                                                  : AssetImage(
+                                                      "assets/backgrounds/no_freeze.png"),
                                             ),
                                           ),
                                           Text(
@@ -784,7 +794,8 @@ class _Question_PageState extends State<Question_Page>
                 height: MediaQuery.of(context).size.height,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('assets/backgrounds/question_page.png'),
+                        image:
+                            AssetImage('assets/backgrounds/question_page.png'),
                         fit: BoxFit.cover)),
                 child: const Center(
                     child: CircularProgressIndicator(
@@ -796,8 +807,8 @@ class _Question_PageState extends State<Question_Page>
   Future<void> getQuestions() async {
     prefs = await SharedPreferences.getInstance();
 
-    final String response =
-        await rootBundle.loadString('assets/questions/easy-level-questions.json');
+    final String response = await rootBundle
+        .loadString('assets/questions/easy-level-questions.json');
     final bank = await json.decode(response);
     setState(() {
       questions_items = bank[widget.mode];
@@ -812,7 +823,7 @@ class _Question_PageState extends State<Question_Page>
   }
 
   Future<void> _Game_finsih_Dialogbox(BuildContext context) async {
-    prefs.setDouble('coins', prefs.getDouble('coins')! + _points);
+    prefs.setInt('coins', prefs.getInt('coins')! + _points);
     return showDialog(
         context: context,
         builder: (BuildContext contexts) {
@@ -911,8 +922,8 @@ class _Question_PageState extends State<Question_Page>
                       children: [
                         FilledButton(
                             style: ButtonStyle(
-                                backgroundColor: WidgetStateProperty.all(
-                                    Colors.deepOrange)),
+                                backgroundColor:
+                                    WidgetStateProperty.all(Colors.deepOrange)),
                             onPressed: () {
                               _try_again_lifeline = _try_again_lifeline - 1;
                               prefs.setInt(
@@ -982,7 +993,6 @@ class _Question_PageState extends State<Question_Page>
                 height: 300,
                 width: 390,
                 child: Column(
-
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [

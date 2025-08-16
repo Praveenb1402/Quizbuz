@@ -11,4 +11,17 @@ class SoundEffect {
     player.seek(Duration.zero);
     player.play();
   }
+
+  void loadtimerSound() async {
+    player.setAudioSource(AudioSource.asset("assets/sounds/time1.mp3"));
+    player.seek(Duration.zero);
+    player.setLoopMode(LoopMode.one);
+    player.play();
+  }
+
+  void cancelTimerSound() async {
+    if (player.playing) {
+      player.stop();
+    }
+  }
 }

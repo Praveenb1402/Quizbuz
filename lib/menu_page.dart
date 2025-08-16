@@ -285,7 +285,6 @@ class Main_PageState extends ConsumerState<Main_Page> {
                         ],
                       ),
                     ),
-
                     Row(
                       children: [
                         Container(
@@ -309,43 +308,8 @@ class Main_PageState extends ConsumerState<Main_Page> {
                           height: 250,
                           child: const Gest_quiz(),
                         ),
-                        // Container(
-                        //   width: MediaQuery.of(context).size.width / 2,
-                        //   height: 250,
-                        //   child: Gest_coming_soon(),
-                        // ),
                       ],
                     ),
-
-                    // Container(
-                    //   margin: const EdgeInsets.all(10),
-                    //   width: MediaQuery.of(context).size.width - 50,
-                    //   height: 250,
-                    //   child:
-
-                    // For Time Buzz
-                    //
-                    // // For Quiz
-                    //
-                    // //For Coming soon
-                    //
-
-                    // ),
-                    // SizedBox(
-                    //   child: SmoothPageIndicator(
-                    //     controller: _page_controller,
-                    //     count: 4,
-                    //     onDotClicked: (index) {
-                    //       _page_controller.animateToPage(
-                    //         index,
-                    //         duration: const Duration(milliseconds: 200),
-                    //         curve: Curves.easeInOut,
-                    //       );
-                    //     },
-                    //     effect: const ExpandingDotsEffect(
-                    //         dotHeight: 10, dotWidth: 15, spacing: 15),
-                    //   ),
-                    // ),
                   ],
                 ),
               ]),
