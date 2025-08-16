@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quizbuz/RiverPod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../NoCoinsDialogBox.dart';
 
 class Skipper extends StatefulWidget {
-  int owned;
-
-  Skipper({super.key, required this.owned});
+  Skipper({super.key});
 
   @override
   State<Skipper> createState() => _SkipperState();
@@ -30,7 +30,10 @@ class _SkipperState extends State<Skipper> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text("Skipper"),
-          Text("Total Owned: " + widget.owned.toString()),
+          Consumer(builder: (context, ref, child) {
+            final _bonusCount = ref.watch(BonusRiverpod).skipper;
+            return Text("Total Owned: $_bonusCount");
+          }),
           const Text(
             "It skips the question to the next one",
             textAlign: TextAlign.center,
@@ -71,42 +74,38 @@ class _SkipperState extends State<Skipper> {
                   icon: const Icon(Icons.exposure_plus_1)),
             ],
           ),
-          FilledButton(
-              style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(Colors.deepOrange)),
-              onPressed: () async {
-                late SharedPreferences prefs;
-                prefs = await SharedPreferences.getInstance();
-
-                setState(() {
-                  double? _totalcoins = prefs.getDouble('coins');
-                  int _owneditemcount = int.parse(widget.owned.toString());
-                  int _buycount = int.parse(_bonus_controller.text);
-                  if (_totalcoins! >= (_buycount * 10)) {
-                    prefs.setDouble(
-                        "coins", _totalcoins - (_buycount) * 10.0);
-                    prefs.setInt(
-                        'skipquestion',
-                        int.parse(_bonus_controller.text) +
-                            int.parse(widget.owned.toString()));
-                    widget.owned = prefs.getInt('skipquestion')!;
-                  } else {
-                    NoCoinsDialogBox().showNoCoinsDialogBox(context);
-
-                  }
-                });
-              },
-              child: const Text(
-                "Add",
-                style: TextStyle(
-                    fontFamily: 'RubikDoodleShadow',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              )),
+          Consumer(
+            builder: (context, ref, child) {
+              return FilledButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.deepOrange)),
+                  onPressed: () {
+                    updateCoins(ref);
+                  },
+                  child: const Text(
+                    "Add",
+                    style: TextStyle(
+                        fontFamily: 'RubikDoodleShadow',
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ));
+            },
+          ),
         ],
       ),
     );
+  }
+
+  void updateCoins(WidgetRef ref) async {
+    final _totalCoins = ref.watch(TotalCoins);
+    int _buycount = int.parse(_bonus_controller.text);
+    if (_totalCoins >= (_buycount * 10)) {
+      ref.read(TotalCoins.notifier).updateCoins(_totalCoins - _buycount * 10);
+      ref.read(BonusRiverpod.notifier).updateSkipBonus(_buycount);
+    } else {
+      NoCoinsDialogBox().showNoCoinsDialogBox(context);
+    }
   }
 }

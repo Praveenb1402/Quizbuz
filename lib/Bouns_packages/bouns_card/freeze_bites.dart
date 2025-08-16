@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../NoCoinsDialogBox.dart';
+import '../../RiverPod.dart';
 
 class FreezeState extends StatefulWidget {
-  int owned;
-
-  FreezeState({super.key, required this.owned});
+  FreezeState({super.key});
 
   @override
   State<FreezeState> createState() => _FreezeStateState();
@@ -29,7 +27,11 @@ class _FreezeStateState extends State<FreezeState> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text("Freeze Bites"),
-          Text("Total Owned: " + widget.owned.toString()),
+          Consumer(builder: (context, ref, child) {
+            int _bonusCount = ref.watch(BonusRiverpod).freezeBite;
+            print(ref.watch(BonusRiverpod).freezeBite);
+            return Text("Total Owned: $_bonusCount ");
+          }),
           const Text(
             "It Freezes the timer for 5 seconds",
             textAlign: TextAlign.center,
@@ -70,42 +72,38 @@ class _FreezeStateState extends State<FreezeState> {
                   icon: const Icon(Icons.exposure_plus_1)),
             ],
           ),
-          FilledButton(
-              style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(Colors.deepOrange)),
-              onPressed: () async {
-                late SharedPreferences prefs;
-                prefs = await SharedPreferences.getInstance();
-                setState(() {
-                  double? _totalcoins = prefs.getDouble('coins');
-                  int _owneditemcount = int.parse(widget.owned.toString());
-                  int _buycount = int.parse(_bonus_controller.text);
-                  if (_totalcoins! >= (_buycount * 10)) {
-                    prefs.setDouble(
-                        "coins", _totalcoins - (_buycount) * 10.0);
-                    prefs.setInt(
-                        'freezetime',
-                        int.parse(_bonus_controller.text) +
-                            int.parse(widget.owned.toString()));
-                    widget.owned = prefs.getInt('freezetime')!;
-                    print("updated");
-                  } else {
-                    NoCoinsDialogBox().showNoCoinsDialogBox(context);
-                    print("No coins available");
-                  }
-                });
-              },
-              child: const Text(
-                "Add",
-                style: TextStyle(
-                    fontFamily: 'RubikDoodleShadow',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              )),
+          Consumer(
+            builder: (context, ref, child) {
+              return FilledButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          WidgetStateProperty.all(Colors.deepOrange)),
+                  onPressed: () {
+                    updateCoins(ref, _bonus_controller.text);
+                  },
+                  child: const Text(
+                    "Add",
+                    style: TextStyle(
+                        fontFamily: 'RubikDoodleShadow',
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ));
+            },
+          ),
         ],
       ),
     );
+  }
+
+  void updateCoins(WidgetRef ref, String _bonus_controller) async {
+    final _totalCoins = ref.watch(TotalCoins);
+    int _buycount = int.parse(_bonus_controller);
+    if (_totalCoins >= (_buycount * 10)) {
+      ref.read(TotalCoins.notifier).updateCoins(_totalCoins - _buycount * 10);
+      ref.read(BonusRiverpod.notifier).updateFreezeBite(_buycount);
+    } else {
+      NoCoinsDialogBox().showNoCoinsDialogBox(context);
+    }
   }
 }

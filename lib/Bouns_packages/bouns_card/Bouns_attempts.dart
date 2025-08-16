@@ -6,9 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../NoCoinsDialogBox.dart';
 
 class BonusAttempts extends StatefulWidget {
-  int owned; // make immutable
-
-  BonusAttempts({super.key, required this.owned});
+  BonusAttempts({super.key});
 
   @override
   State<BonusAttempts> createState() => _BonusAttemptsState();
@@ -16,32 +14,17 @@ class BonusAttempts extends StatefulWidget {
 
 class _BonusAttemptsState extends State<BonusAttempts> {
   late TextEditingController _bonusController;
-  late int _owned;
 
   @override
   void initState() {
     super.initState();
     _bonusController = TextEditingController(text: "1");
-    _owned = widget.owned;
   }
 
   @override
   void dispose() {
     _bonusController.dispose();
     super.dispose();
-  }
-
-  Future<void> _loadOwned() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _owned = prefs.getInt('tryagainlifeline') ?? widget.owned;
-    });
-  }
-
-  void _buyBonus() {
-    try {} catch (e) {
-      print("Error: $e");
-    }
   }
 
   @override
@@ -60,7 +43,10 @@ class _BonusAttemptsState extends State<BonusAttempts> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Flexible(child: Text("Bonus Attempts")),
-          Text("Total Owned: " + widget.owned.toString()),
+          Consumer(builder: (context, ref, child) {
+            final bonusCount = ref.watch(BonusRiverpod).tryAgain;
+            return Text("Total Owned: $bonusCount");
+          }),
           const Expanded(
             child: Text(
               "Answer again to the same question",
@@ -109,27 +95,7 @@ class _BonusAttemptsState extends State<BonusAttempts> {
                   backgroundColor: WidgetStateProperty.all(Colors.deepOrange),
                 ),
                 onPressed: () async {
-                  late SharedPreferences prefs;
-                  prefs = await SharedPreferences.getInstance();
-                  setState(() {
-                    final _totalCoins = ref.watch(TotalCoins);
-                    int ownedItemCount = prefs.getInt('tryagainlifeline') ?? 0;
-                    int buyCount = int.tryParse(_bonusController.text) ?? 0;
-                    if (_totalCoins >= (buyCount * 10)) {
-                      int newOwned = ownedItemCount + buyCount;
-                      int newCoins = _totalCoins - (buyCount * 10);
-                      prefs.setInt("tryagainlifeline", newOwned);
-                      ref
-                          .read(TotalCoins.notifier)
-                          .updateCoins(_totalCoins - buyCount * 10);
-                      widget.owned = newOwned;
-
-                      print("Bonus purchased ✅");
-                    } else {
-                      NoCoinsDialogBox().showNoCoinsDialogBox(context);
-                      print("Not enough coins ❌");
-                    }
-                  });
+                  updateCoins(ref);
                 },
                 child: const Text(
                   "Add",
@@ -146,5 +112,16 @@ class _BonusAttemptsState extends State<BonusAttempts> {
         ],
       ),
     );
+  }
+
+  void updateCoins(WidgetRef ref) async {
+    final _totalCoins = ref.watch(TotalCoins);
+    int buyCount = int.tryParse(_bonusController.text) ?? 0;
+    if (_totalCoins >= (buyCount * 10)) {
+      ref.read(TotalCoins.notifier).updateCoins(_totalCoins - buyCount * 10);
+      ref.read(BonusRiverpod.notifier).updateTryAgainBonus(buyCount);
+    } else {
+      NoCoinsDialogBox().showNoCoinsDialogBox(context);
+    }
   }
 }

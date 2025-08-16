@@ -5,9 +5,7 @@ import 'package:quizbuz/RiverPod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Add_time_container extends ConsumerStatefulWidget {
-  int owned;
-
-  Add_time_container({super.key, required this.owned});
+  Add_time_container({super.key});
 
   @override
   ConsumerState<Add_time_container> createState() => _Add_time_containerState();
@@ -15,8 +13,6 @@ class Add_time_container extends ConsumerStatefulWidget {
 
 class _Add_time_containerState extends ConsumerState<Add_time_container> {
   @override
-  late SharedPreferences prefs;
-
   Widget build(BuildContext context) {
     TextEditingController _bonus_controller = TextEditingController(text: "1");
     return Container(
@@ -32,7 +28,10 @@ class _Add_time_containerState extends ConsumerState<Add_time_container> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text("Time Adder"),
-          Text("Total Owned: " + widget.owned.toString()),
+          Consumer(builder: (context, ref, child) {
+            final _bonusCount = ref.watch(BonusRiverpod).addTime;
+            return Text("Total Owned: $_bonusCount");
+          }),
           Text(
             "This add 10 more seconds to the timer. ",
             textAlign: TextAlign.center,
@@ -76,23 +75,8 @@ class _Add_time_containerState extends ConsumerState<Add_time_container> {
           FilledButton(
               style: ButtonStyle(
                   backgroundColor: WidgetStateProperty.all(Colors.deepOrange)),
-              onPressed: () async {
-                prefs = await SharedPreferences.getInstance();
-                setState(() {
-                  int? _totalcoins = prefs.getInt('coins');
-                  int _owneditemcount = int.parse(widget.owned.toString());
-                  int _buycount = int.parse(_bonus_controller.text);
-                  if (_totalcoins! >= (_buycount * 5)) {
-                    prefs.setInt(
-                        'addtimelifeline', (_owneditemcount + _buycount));
-                    ref
-                        .read(TotalCoins.notifier)
-                        .updateCoins(_totalcoins - _buycount * 10);
-                    widget.owned = prefs.getInt('addtimelifeline')!;
-                  } else {
-                    NoCoinsDialogBox().showNoCoinsDialogBox(context);
-                  }
-                });
+              onPressed: () {
+                updateCoins(_bonus_controller.text);
               },
               child: const Text(
                 "Add",
@@ -105,5 +89,16 @@ class _Add_time_containerState extends ConsumerState<Add_time_container> {
         ],
       ),
     );
+  }
+
+  void updateCoins(String _bonus_controller) {
+    int _totalcoins = ref.watch(TotalCoins);
+    int _buycount = int.parse(_bonus_controller);
+    if (_totalcoins >= (_buycount * 5)) {
+      ref.read(TotalCoins.notifier).updateCoins(_totalcoins - _buycount * 5);
+      ref.read(BonusRiverpod.notifier).updateAddTimeBonus(_buycount);
+    } else {
+      NoCoinsDialogBox().showNoCoinsDialogBox(context);
+    }
   }
 }

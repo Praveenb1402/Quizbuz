@@ -5,29 +5,20 @@ import 'package:quizbuz/Bouns_packages/bouns_card/Skipper.dart';
 import 'package:quizbuz/Bouns_packages/bouns_card/add_timer_container.dart';
 import 'package:quizbuz/Bouns_packages/bouns_card/freeze_bites.dart';
 import 'package:quizbuz/RiverPod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../Buy coins/buy_coins_main_page.dart';
 
-class Bossters_page extends StatefulWidget {
-  const Bossters_page({super.key});
+class BoosterPage extends StatefulWidget {
+  const BoosterPage({super.key});
 
   @override
-  State<Bossters_page> createState() => _Bossters_pageState();
+  State<BoosterPage> createState() => _BoostersPageState();
 }
 
-class _Bossters_pageState extends State<Bossters_page> {
-  late int _try_again_lifeline = 0;
-  late int _addtime_lifeline = 0;
-  late int _skip_quesion_lifeline = 0;
-  late int _freeze_time_lifeline = 0;
-  String _totalCoins = "0";
-
+class _BoostersPageState extends State<BoosterPage> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getOptioncount();
   }
 
   @override
@@ -79,9 +70,9 @@ class _Bossters_pageState extends State<Bossters_page> {
                         ),
                         Consumer(
                           builder: (context, ref, child) {
-                            final _totalCoins = ref.watch(TotalCoins);
+                            final totalCoins = ref.watch(TotalCoins);
                             return Text(
-                              _totalCoins.toString(),
+                              totalCoins.toString(),
                               textAlign: TextAlign.center,
                             );
                           },
@@ -102,15 +93,14 @@ class _Bossters_pageState extends State<Bossters_page> {
                   ),
                   Row(
                     children: [
-                      Add_time_container(owned: _addtime_lifeline),
-                      // Booster_container(name:"Time Adder",option:0),
-                      FreezeState(owned: _freeze_time_lifeline),
+                      Add_time_container(),
+                      FreezeState(),
                     ],
                   ),
                   Row(
                     children: [
-                      Skipper(owned: _skip_quesion_lifeline),
-                      BonusAttempts(owned: _try_again_lifeline),
+                      Skipper(),
+                      BonusAttempts(),
                       // Booster_container(name: "Skipper", option: 2),
                       // Booster_container(name: "Bonus Attempts", option: 3),
                     ],
@@ -140,17 +130,5 @@ class _Bossters_pageState extends State<Bossters_page> {
         ),
       ),
     );
-  }
-
-  void getOptioncount() async {
-    late SharedPreferences prefs;
-    prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _try_again_lifeline = prefs.getInt('tryagainlifeline')!;
-      _addtime_lifeline = prefs.getInt('addtimelifeline')!;
-      _skip_quesion_lifeline = prefs.getInt('skipquestion')!;
-      _freeze_time_lifeline = prefs.getInt('freezetime')!;
-      _totalCoins = prefs.getDouble('coins').toString();
-    });
   }
 }

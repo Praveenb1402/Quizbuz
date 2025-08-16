@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:quizbuz/Bouns_packages/BounsNotifier.dart';
 import 'package:quizbuz/Bouns_packages/booster_page.dart';
 import 'package:quizbuz/Buy%20coins/buy_coins_main_page.dart';
-import 'package:quizbuz/Buy%20coins/coins_card.dart';
 import 'package:quizbuz/CoinsHandle.dart';
 import 'package:quizbuz/RiverPod.dart';
 import 'package:quizbuz/Settings/Setting_page.dart';
@@ -45,16 +45,14 @@ class Main_PageState extends ConsumerState<Main_Page> {
 
   @override
   void initState() {
-    print("init called");
     super.initState();
     initBannerAds();
     CoinsNotifier();
-    // getcoins();
+    Bounsnotifier();
   }
 
   @override
   void dispose() {
-
     _bannerAd.dispose();
     // TODO: implement dispose
     super.dispose();
@@ -247,7 +245,7 @@ class Main_PageState extends ConsumerState<Main_Page> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const Bossters_page()));
+                                          const BoosterPage()));
                             },
                             icon: const Icon(Icons.add_box),
                           ),
@@ -342,7 +340,6 @@ class Main_PageState extends ConsumerState<Main_Page> {
   }
 
   Future<void> getcoins() async {
-
     SharedPreferences prefs = await SharedPreferences.getInstance();
     double? _totalcoins = prefs.getDouble('coins');
     print(_totalcoins);
