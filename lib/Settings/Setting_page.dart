@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quizbuz/RiverPod.dart';
 
 class Setting_Page extends StatefulWidget {
   const Setting_Page({super.key});
@@ -8,10 +10,6 @@ class Setting_Page extends StatefulWidget {
 }
 
 class _Setting_PageState extends State<Setting_Page> {
-  bool _background_music = true;
-  bool _click_sound = true;
-  bool _all_mute = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,13 +53,18 @@ class _Setting_PageState extends State<Setting_Page> {
                               "Background Music",
                               style: TextStyle(fontSize: 20),
                             ),
-                            Switch(
-                                value: _background_music,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _background_music = value;
+                            Consumer(builder: (context, ref, child) {
+                              final isbgvalue = ref
+                                  .watch(SoundEffectRiverPod)
+                                  .isBackgroundSound;
+                              return Switch(
+                                  value: isbgvalue,
+                                  onChanged: (value) {
+                                    ref
+                                        .read(SoundEffectRiverPod.notifier)
+                                        .setBackgroundSoundAllowed(value);
                                   });
-                                })
+                            })
                           ],
                         ),
                       ),
@@ -79,13 +82,17 @@ class _Setting_PageState extends State<Setting_Page> {
                               "Click Sound",
                               style: TextStyle(fontSize: 20),
                             ),
-                            Switch(
-                                value: _click_sound,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _click_sound = value;
+                            Consumer(builder: (context, ref, child) {
+                              final _clickValue =
+                                  ref.watch(SoundEffectRiverPod).isClickSound;
+                              return Switch(
+                                  value: _clickValue,
+                                  onChanged: (value) {
+                                    ref
+                                        .read(SoundEffectRiverPod.notifier)
+                                        .setClickedSoundAllowed(value);
                                   });
-                                })
+                            })
                           ],
                         ),
                       ),
@@ -103,13 +110,19 @@ class _Setting_PageState extends State<Setting_Page> {
                               "All mute",
                               style: TextStyle(fontSize: 20),
                             ),
-                            Switch(
-                                value: _all_mute,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _all_mute = value;
-                                  });
-                                })
+                            Consumer(
+                              builder: (context, ref, child) {
+                                final isallmuted =
+                                    ref.watch(SoundEffectRiverPod).isAllMute;
+                                return Switch(
+                                    value: isallmuted,
+                                    onChanged: (value) {
+                                      ref
+                                          .read(SoundEffectRiverPod.notifier)
+                                          .setAllMute(value);
+                                    });
+                              },
+                            )
                           ],
                         ),
                       ),

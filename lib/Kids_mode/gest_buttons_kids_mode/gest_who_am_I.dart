@@ -11,11 +11,6 @@ class _Gesture_Who_am_i_State extends State<Gesture_Who_am_i_> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (context) =>
-        //         const Rapid_Round_main_page()));
       },
       child: Container(
         margin: const EdgeInsets.all(10),
@@ -35,6 +30,9 @@ class _Gesture_Who_am_i_State extends State<Gesture_Who_am_i_> {
                 Text(
                   "Details of the Round with some extras.",
                   textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black)
                 )
               ],
             ),

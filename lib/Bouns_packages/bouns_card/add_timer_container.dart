@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quizbuz/NoCoinsDialogBox.dart';
 import 'package:quizbuz/RiverPod.dart';
+import 'package:quizbuz/SoundEffect/ClickSounds.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Add_time_container extends ConsumerStatefulWidget {
@@ -30,7 +31,10 @@ class _Add_time_containerState extends ConsumerState<Add_time_container> {
           Text("Time Adder"),
           Consumer(builder: (context, ref, child) {
             final _bonusCount = ref.watch(BonusRiverpod).addTime;
-            return Text("Total Owned: $_bonusCount");
+            return Text(
+              "Total Owned: $_bonusCount",
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            );
           }),
           Text(
             "This add 10 more seconds to the timer. ",
@@ -97,6 +101,8 @@ class _Add_time_containerState extends ConsumerState<Add_time_container> {
     if (_totalcoins >= (_buycount * 5)) {
       ref.read(TotalCoins.notifier).updateCoins(_totalcoins - _buycount * 5);
       ref.read(BonusRiverpod.notifier).updateAddTimeBonus(_buycount);
+      if (ref.watch(SoundEffectRiverPod).isClickSound)
+        SoundEffect().bonusBoughtSound();
     } else {
       NoCoinsDialogBox().showNoCoinsDialogBox(context);
     }

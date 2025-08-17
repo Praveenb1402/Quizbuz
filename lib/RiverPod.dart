@@ -1,5 +1,6 @@
 import 'package:quizbuz/Bouns_packages/BounsNotifier.dart';
 import 'package:quizbuz/CoinsHandle.dart';
+import 'package:quizbuz/SoundEffect/SoundEffectNotifier.dart';
 import 'package:riverpod/riverpod.dart';
 
 final TotalCoins = StateNotifierProvider<CoinsNotifier, int>((ref) {
@@ -8,4 +9,9 @@ final TotalCoins = StateNotifierProvider<CoinsNotifier, int>((ref) {
 
 final BonusRiverpod = StateNotifierProvider<Bounsnotifier, BounsesState>((ref) {
   return Bounsnotifier();
+});
+
+final SoundEffectRiverPod =
+    StateNotifierProvider<SoundStateNotifier, SoundEffectState>((ref) {
+  return SoundStateNotifier();
 });

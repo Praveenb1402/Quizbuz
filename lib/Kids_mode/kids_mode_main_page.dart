@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quizbuz/Kids_mode/gest_buttons_kids_mode/gest_who_am_I.dart';
+import 'package:quizbuz/Settings/Setting_page.dart';
+import 'package:quizbuz/SoundEffect/ClickSounds.dart';
 
 class Kids_Mode_Main_page extends StatefulWidget {
   const Kids_Mode_Main_page({super.key});
@@ -16,7 +18,8 @@ class _Kids_Mode_Main_pageState extends State<Kids_Mode_Main_page> {
           title: FittedBox(
             child: const Text(
               "QuizBuzz",
-              style: TextStyle(fontFamily: 'RubikDoodleTriangles', fontSize: 60),
+              style:
+                  TextStyle(fontFamily: 'RubikDoodleTriangles', fontSize: 60),
             ),
           ),
           automaticallyImplyLeading: false,
@@ -27,7 +30,8 @@ class _Kids_Mode_Main_pageState extends State<Kids_Mode_Main_page> {
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/backgrounds/kids_mode_background.png"),
+                image:
+                    AssetImage("assets/backgrounds/kids_mode_background.png"),
                 fit: BoxFit.cover)),
         child: SingleChildScrollView(
           child: Column(
@@ -59,8 +63,26 @@ class _Kids_Mode_Main_pageState extends State<Kids_Mode_Main_page> {
                                 fit: BoxFit.fill)),
                       ),
                     ),
+
                   ],
                 ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Container(
+                    margin: const EdgeInsets.only(bottom: 5,right: 10),
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        color: Colors.white),
+                    child: IconButton(
+                        onPressed: () async {
+                          SoundEffect().playSound();
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return const Setting_Page();
+                              }));
+                        },
+                        icon: const Icon(Icons.settings))),
               ),
               const SizedBox(
                 height: 100,

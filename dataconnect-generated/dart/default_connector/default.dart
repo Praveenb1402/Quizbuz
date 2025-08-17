@@ -1,8 +1,6 @@
 library default_connector;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:convert';
-
 class DefaultConnector {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 

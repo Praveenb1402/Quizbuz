@@ -30,8 +30,10 @@ void main() async {
     prefs.setInt('freezetime', 5);
     prefs.setInt('skipquestion', 5);
     prefs.setBool('granted', true);
+    prefs.setBool('isclickSound', true);
+    prefs.setBool('backgroundSound', true);
+    prefs.setBool('allmute', false);
   }
-  prefs.setInt('coins', 100);
   SoundEffect().loadClickSound();
   runApp(const MyApp());
 }

@@ -4,6 +4,9 @@ import 'dart:math' show Random;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quizbuz/CoinsHandle.dart';
+import 'package:quizbuz/RiverPod.dart';
 import 'package:quizbuz/SoundEffect/ClickSounds.dart';
 import 'package:quizbuz/menu_page.dart';
 import 'package:quizbuz/servies/database.dart';
@@ -33,7 +36,7 @@ class _Question_PageState extends State<Question_Page>
   bool _disable_btn = false;
   List questions_items = [];
   late Timer _timer;
-  late Timer _freezetimer;
+  Timer? _freezetimer;
   late int _try_again_lifeline;
   int _addtime_lifeline = 0;
   int _skip_quesion_lifeline = 0;
@@ -80,6 +83,7 @@ class _Question_PageState extends State<Question_Page>
         });
       });
     } else {
+      SoundEffect().incorrectAcnswerSound();
       if (_round_name == "Time Buzz") {
         _btn4_bg_color = Colors.red;
         _timerchanger =
@@ -116,6 +120,7 @@ class _Question_PageState extends State<Question_Page>
   void checkAnswerB(String _round_name) {
     if (questions_items[uniqueNumbers[_question_index]]["B"].toString() ==
         questions_items[uniqueNumbers[_question_index]]["Ans"]) {
+      SoundEffect().correctAnswerSound();
       _btn2_bg_color = Colors.green;
       _timerchanger =
           Timer.periodic(const Duration(milliseconds: 500), (timer) {
@@ -141,6 +146,7 @@ class _Question_PageState extends State<Question_Page>
         });
       });
     } else {
+      SoundEffect().incorrectAcnswerSound();
       if (_round_name == "Time Buzz") {
         _btn2_bg_color = Colors.red;
         _timerchanger =
@@ -175,6 +181,8 @@ class _Question_PageState extends State<Question_Page>
   void checkAnswerc(String _round_name) {
     if (questions_items[uniqueNumbers[_question_index]]["C"].toString() ==
         questions_items[uniqueNumbers[_question_index]]["Ans"]) {
+      SoundEffect().correctAnswerSound();
+
       _btn3_bg_color = Colors.green;
       _timerchanger =
           Timer.periodic(const Duration(milliseconds: 500), (timer) {
@@ -200,6 +208,7 @@ class _Question_PageState extends State<Question_Page>
         });
       });
     } else {
+      SoundEffect().incorrectAcnswerSound();
       if (_round_name == "Time Buzz") {
         _btn3_bg_color = Colors.red;
         _timerchanger =
@@ -235,6 +244,8 @@ class _Question_PageState extends State<Question_Page>
     setState(() {
       if (questions_items[uniqueNumbers[_question_index]]["A"] ==
           questions_items[uniqueNumbers[_question_index]]["Ans"]) {
+        SoundEffect().correctAnswerSound();
+
         _btn1_bg_color = Colors.green;
         _points = _points + 1;
         _timerchanger =
@@ -259,6 +270,8 @@ class _Question_PageState extends State<Question_Page>
           });
         });
       } else {
+        SoundEffect().incorrectAcnswerSound();
+
         if (_round_name == "Time Buzz") {
           _btn1_bg_color = Colors.red;
           _timerchanger =
@@ -294,7 +307,6 @@ class _Question_PageState extends State<Question_Page>
   void startTimer() {
     SoundEffect().loadtimerSound();
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-
       setState(() {
         if (_countdown > 0) {
           _countdown--;
@@ -323,18 +335,19 @@ class _Question_PageState extends State<Question_Page>
       uniqueNumbers = numbersSet.toList(); // Convert set to list
     });
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
     SoundEffect().cancelTimerSound();
+    _timer.cancel();
     super.dispose();
   }
+
   @override
   void initState() {
     super.initState();
 
-    Firestore_Database questionclass = Firestore_Database();
-    questionclass.getquestion(widget.mode);
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
@@ -343,8 +356,8 @@ class _Question_PageState extends State<Question_Page>
       parent: _controller,
       curve: Curves.fastLinearToSlowEaseIn,
     );
+    getQuestions();
     setState(() {
-      getQuestions();
       if (widget.mode == "Quiz") {
         _countdown = 30;
       }
@@ -355,7 +368,6 @@ class _Question_PageState extends State<Question_Page>
 
     Future.delayed(const Duration(milliseconds: 50), () {
       if (questions_items.isNotEmpty) {
-        _showchoiceDialog(context);
       } else {
         // print("object");
         // Center(child: const CircularProgressIndicator());
@@ -384,407 +396,421 @@ class _Question_PageState extends State<Question_Page>
     String _round_name = widget.round_name;
     return Scaffold(
         body: questions_items.isNotEmpty
-            ? Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image:
-                            AssetImage('assets/backgrounds/question_page.png'),
-                        fit: BoxFit.cover)),
-                child: SafeArea(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        FittedBox(
-                          child: Text(
-                            '$_round_name',
-                            style: TextStyle(
-                                fontFamily: 'RubikDoodleTriangles',
-                                fontSize: 50,
-                                color: Colors.white),
-                          ),
+            ? PopScope(
+                canPop: false, // set to false if you want to handle it manually
+                onPopInvokedWithResult: (didPop, result) {
+                  if (didPop) {
+                    // User already popped (default behavior), usually you don’t need extra code here
+                    return;
+                  }
+
+                  // Custom logic when back is pressed
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text("Are you sure?"),
+                      content: Text("Do you want to go back?"),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: Text("No"),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    if (_skip_quesion_lifeline != 0 &&
-                                        _freeze_time_lifeline != 0 &&
-                                        _addtime_lifeline != 0) {
-                                      _toggleContainer();
-                                    }
-                                  },
-                                  child: Container(
-                                    width: 80,
-                                    height: 80,
-                                    margin: const EdgeInsets.only(
-                                        right: 30, top: 30),
-                                    child: const CircleAvatar(
-                                      backgroundImage: AssetImage(
-                                        "assets/backgrounds/LifelLines.png",
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(true),
+                          child: Text("Yes"),
+                        ),
+                      ],
+                    ),
+                  ).then((value) {
+                    if (value == true) {
+                      Navigator.of(context).pop(); // actually go back
+                    }
+                  });
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(
+                              'assets/backgrounds/question_page.png'),
+                          fit: BoxFit.cover)),
+                  child: SafeArea(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          FittedBox(
+                            child: Text(
+                              '$_round_name',
+                              style: TextStyle(
+                                  fontFamily: 'RubikDoodleTriangles',
+                                  fontSize: 50,
+                                  color: Colors.white),
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      if (_skip_quesion_lifeline != 0 ||
+                                          _freeze_time_lifeline != 0 ||
+                                          _addtime_lifeline != 0) {
+                                        _toggleContainer();
+                                      }
+                                    },
+                                    child: Container(
+                                      width: 80,
+                                      height: 80,
+                                      margin: const EdgeInsets.only(
+                                          right: 30, top: 30),
+                                      child: const CircleAvatar(
+                                        backgroundImage: AssetImage(
+                                          "assets/backgrounds/LifelLines.png",
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                SizeTransition(
-                                  sizeFactor: _animation,
-                                  axis: Axis.horizontal,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      const SizedBox(
-                                        width: 3,
-                                      ),
-                                      //Skip question
-                                      Column(
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              if (_skip_quesion_lifeline != 0) {
-                                                _toggleContainer();
-                                                setState(() {
-                                                  _skip_quesion_lifeline--;
-                                                  _question_index++;
-                                                  prefs.setInt("skipquestion",
-                                                      _skip_quesion_lifeline);
-                                                });
-                                              }
-                                            },
-                                            child: CircleAvatar(
-                                              radius: 25,
-                                              backgroundImage:
-                                                  _skip_quesion_lifeline != 0
-                                                      ? AssetImage(
-                                                          "assets/backgrounds/skip.png")
-                                                      : AssetImage(
-                                                          "assets/backgrounds/no_skip.png"),
-                                            ),
-                                          ),
-                                          Text(
-                                            "Skip\nQuestion",
-                                            textAlign: TextAlign.center,
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        width: 3,
-                                      ),
-                                      Column(
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              if (!_freezetimer.isActive) {
-                                                if (_freeze_time_lifeline !=
+                                  SizeTransition(
+                                    sizeFactor: _animation,
+                                    axis: Axis.horizontal,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const SizedBox(
+                                          width: 3,
+                                        ),
+                                        //Skip question
+                                        Column(
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                if (_skip_quesion_lifeline !=
                                                     0) {
                                                   _toggleContainer();
                                                   setState(() {
-                                                    _freeze_time_lifeline--;
-                                                    _timer.cancel();
-                                                    _freezetimer =
-                                                        Timer.periodic(
-                                                            const Duration(
-                                                                seconds: 1),
-                                                            (timer) {
-                                                      setState(() {
-                                                        _timer.cancel();
-                                                        if (_freezetime > 0) {
-                                                          _freezetime--;
-                                                        } else {
-                                                          // Timer will be canceled once it reached 0
-                                                          _freezetimer.cancel();
-                                                          startTimer();
-                                                        }
-                                                      });
-                                                    });
-                                                    prefs.setInt("freezetime",
-                                                        _freeze_time_lifeline);
+                                                    _skip_quesion_lifeline--;
+                                                    _question_index++;
+                                                    prefs.setInt("skipquestion",
+                                                        _skip_quesion_lifeline);
                                                   });
                                                 }
-                                              }
-                                            },
-                                            child: CircleAvatar(
-                                              radius: 25,
-                                              backgroundImage: _freeze_time_lifeline !=
-                                                      0
-                                                  ? AssetImage(
-                                                      "assets/backgrounds/freeze.png")
-                                                  : AssetImage(
-                                                      "assets/backgrounds/no_freeze.png"),
+                                              },
+                                              child: CircleAvatar(
+                                                radius: 25,
+                                                backgroundImage:
+                                                    _skip_quesion_lifeline != 0
+                                                        ? AssetImage(
+                                                            "assets/backgrounds/skip.png")
+                                                        : AssetImage(
+                                                            "assets/backgrounds/no_skip.png"),
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            "Freeze\nTime",
-                                            textAlign: TextAlign.center,
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          )
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        width: 3,
-                                      ),
-                                      Column(
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              if (_addtime_lifeline != 0) {
-                                                _toggleContainer();
-                                                _addtime_lifeline--;
-                                                setState(() {
-                                                  _countdown = _countdown + 10;
-                                                  prefs.setInt(
-                                                      "addtimelifeline",
-                                                      _addtime_lifeline);
-                                                });
-                                              }
-                                            },
-                                            child: CircleAvatar(
-                                              radius: 25,
-                                              backgroundImage: _addtime_lifeline !=
-                                                      0
-                                                  ? AssetImage(
-                                                      "assets/backgrounds/addtimer.png")
-                                                  : AssetImage(
-                                                      "assets/backgrounds/no_addtimer.png"),
+                                            Text(
+                                              "Skip\nQuestion",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white),
                                             ),
-                                          ),
-                                          Text(
-                                            "Add\nTime",
-                                            textAlign: TextAlign.center,
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          width: 3,
+                                        ),
+                                        Column(
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                if (_freezetime == 5) {
+                                                  freezeTimeBonusActived();
+                                                }
+                                              },
+                                              child: CircleAvatar(
+                                                radius: 25,
+                                                backgroundImage:
+                                                    _freeze_time_lifeline != 0
+                                                        ? AssetImage(
+                                                            "assets/backgrounds/freeze.png")
+                                                        : AssetImage(
+                                                            "assets/backgrounds/no_freeze.png"),
+                                              ),
+                                            ),
+                                            Text(
+                                              "Freeze\nTime",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          width: 3,
+                                        ),
+                                        Column(
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                if (_addtime_lifeline != 0) {
+                                                  _toggleContainer();
+                                                  _addtime_lifeline--;
+                                                  setState(() {
+                                                    _countdown =
+                                                        _countdown + 10;
+                                                    prefs.setInt(
+                                                        "addtimelifeline",
+                                                        _addtime_lifeline);
+                                                  });
+                                                }
+                                              },
+                                              child: CircleAvatar(
+                                                radius: 25,
+                                                backgroundImage: _addtime_lifeline !=
+                                                        0
+                                                    ? AssetImage(
+                                                        "assets/backgrounds/addtimer.png")
+                                                    : AssetImage(
+                                                        "assets/backgrounds/no_addtimer.png"),
+                                              ),
+                                            ),
+                                            Text(
+                                              "Add\nTime",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
 
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        Container(
-                          width: 130,
-                          height: 100,
-                          decoration: BoxDecoration(
-                              color: _timer_background_color,
-                              shape: BoxShape.circle),
-                          child: Center(
-                              child: Text(
-                            "$_countdown",
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(fontSize: 30),
-                          )),
-                        ),
-                        FittedBox(
-                          child: Container(
-                            margin: const EdgeInsets.all(27),
-                            width: MediaQuery.of(context).size.width - 50,
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          Container(
+                            width: 130,
                             height: 100,
-                            decoration: const BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
+                            decoration: BoxDecoration(
+                                color: _timer_background_color,
+                                shape: BoxShape.circle),
                             child: Center(
                                 child: Text(
-                              questions_items[uniqueNumbers[_question_index]]
-                                  ["Question"],
+                              "$_countdown",
                               textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: 15),
+                              style: const TextStyle(fontSize: 30),
                             )),
                           ),
-                        ),
-
-                        // Options Button with checking the answers in onTap
-                        // and updates it to the next questions.
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                // OPTION NUMBER 4(A)
-                                GestureDetector(
-                                  onTap: _disable_btn
-                                      ? null
-                                      : () {
-                                          setState(() {
-                                            _disable_btn = true;
-                                            checkAnswerA(_round_name);
-                                          });
-                                        },
-                                  child: FittedBox(
-                                    child: Container(
-                                      margin: const EdgeInsets.all(27),
-                                      width: 130,
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                          color: _btn1_bg_color,
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(10))),
-                                      child: Center(
-                                        child: Text(
-                                          questions_items[uniqueNumbers[
-                                              _question_index]]["A"],
-                                          textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                              fontSize: 15),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-
-                                // OPTION NUMBER 4(C)
-                                GestureDetector(
-                                  onTap: _disable_btn
-                                      ? null
-                                      : () {
-                                          setState(() {
-                                            _disable_btn = true;
-                                            checkAnswerc(_round_name);
-                                          });
-                                        },
-                                  child: FittedBox(
-                                    child: Container(
-                                      margin: const EdgeInsets.all(27),
-                                      width: 130,
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                          color: _btn3_bg_color,
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(10))),
-                                      child: Center(
-                                        child: Text(
-                                          questions_items[uniqueNumbers[
-                                              _question_index]]["C"],
-                                          textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                              fontSize: 15),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                // OPTION NUMBER 4(B)
-                                GestureDetector(
-                                  onTap: _disable_btn
-                                      ? null
-                                      : () {
-                                          setState(() {
-                                            _disable_btn = true;
-                                            checkAnswerB(_round_name);
-                                          });
-                                        },
-                                  child: FittedBox(
-                                    child: Container(
-                                      margin: const EdgeInsets.all(27),
-                                      width: 130,
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                          color: _btn2_bg_color,
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(10))),
-                                      child: Center(
-                                        child: Text(
-                                          questions_items[uniqueNumbers[
-                                              _question_index]]["B"],
-                                          textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                              fontSize: 15),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-
-                                // OPTION NUMBER 4(D)
-                                FittedBox(
-                                  child: Container(
-                                    margin: const EdgeInsets.all(27),
-                                    width: 130,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        color: _btn4_bg_color,
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(10))),
-                                    child: GestureDetector(
-                                      onTap: _disable_btn
-                                          ? null
-                                          : () {
-                                              setState(() {
-                                                _disable_btn = true;
-                                                checkAnswerD(_round_name);
-                                              });
-                                            },
-                                      child: Center(
-                                        child: Text(
-                                          questions_items[uniqueNumbers[
-                                              _question_index]]["D"],
-                                          textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                              fontSize: 15),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 100),
-                          child: FilledButton(
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Colors.deepOrange)),
-                              onPressed: () {
-                                // _timer.cancel();
-                                Navigator.pop(context);
-                              },
-                              child: const Text(
-                                "Quit",
-                                style: TextStyle(
-                                    fontFamily: 'RubikDoodleShadow',
-                                    fontSize: 30,
+                          FittedBox(
+                            child: Container(
+                              margin: const EdgeInsets.all(27),
+                              width: MediaQuery.of(context).size.width - 50,
+                              height: 100,
+                              decoration: const BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: Center(
+                                  child: Text(
+                                questions_items[uniqueNumbers[_question_index]]
+                                    ["Question"],
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                                    color: Colors.white,
+                                    fontSize: 15),
                               )),
-                        ),
-                      ],
+                            ),
+                          ),
+
+                          // Options Button with checking the answers in onTap
+                          // and updates it to the next questions.
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: [
+                                  // OPTION NUMBER 4(A)
+                                  GestureDetector(
+                                    onTap: _disable_btn
+                                        ? null
+                                        : () {
+                                            setState(() {
+                                              _disable_btn = true;
+                                              checkAnswerA(_round_name);
+                                            });
+                                          },
+                                    child: FittedBox(
+                                      child: Container(
+                                        margin: const EdgeInsets.all(27),
+                                        width: 130,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                            color: _btn1_bg_color,
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10))),
+                                        child: Center(
+                                          child: Text(
+                                            questions_items[uniqueNumbers[
+                                                _question_index]]["A"],
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 15),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                  // OPTION NUMBER 4(C)
+                                  GestureDetector(
+                                    onTap: _disable_btn
+                                        ? null
+                                        : () {
+                                            setState(() {
+                                              _disable_btn = true;
+                                              checkAnswerc(_round_name);
+                                            });
+                                          },
+                                    child: FittedBox(
+                                      child: Container(
+                                        margin: const EdgeInsets.all(27),
+                                        width: 130,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                            color: _btn3_bg_color,
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10))),
+                                        child: Center(
+                                          child: Text(
+                                            questions_items[uniqueNumbers[
+                                                _question_index]]["C"],
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 15),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  // OPTION NUMBER 4(B)
+                                  GestureDetector(
+                                    onTap: _disable_btn
+                                        ? null
+                                        : () {
+                                            setState(() {
+                                              _disable_btn = true;
+                                              checkAnswerB(_round_name);
+                                            });
+                                          },
+                                    child: FittedBox(
+                                      child: Container(
+                                        margin: const EdgeInsets.all(27),
+                                        width: 130,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                            color: _btn2_bg_color,
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10))),
+                                        child: Center(
+                                          child: Text(
+                                            questions_items[uniqueNumbers[
+                                                _question_index]]["B"],
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 15),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                  // OPTION NUMBER 4(D)
+                                  FittedBox(
+                                    child: Container(
+                                      margin: const EdgeInsets.all(27),
+                                      width: 130,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                          color: _btn4_bg_color,
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: GestureDetector(
+                                        onTap: _disable_btn
+                                            ? null
+                                            : () {
+                                                setState(() {
+                                                  _disable_btn = true;
+                                                  checkAnswerD(_round_name);
+                                                });
+                                              },
+                                        child: Center(
+                                          child: Text(
+                                            questions_items[uniqueNumbers[
+                                                _question_index]]["D"],
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 15),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 100),
+                            child: FilledButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Colors.deepOrange)),
+                                onPressed: () {
+                                  _timerchanger.cancel();
+                                  SoundEffect().cancelTimerSound();
+                                  _Game_finsih_Dialogbox(context);
+                                },
+                                child: const Text(
+                                  "Quit",
+                                  style: TextStyle(
+                                      fontFamily: 'RubikDoodleShadow',
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                )),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -806,97 +832,116 @@ class _Question_PageState extends State<Question_Page>
 
   Future<void> getQuestions() async {
     prefs = await SharedPreferences.getInstance();
-
-    final String response = await rootBundle
-        .loadString('assets/questions/easy-level-questions.json');
-    final bank = await json.decode(response);
-    setState(() {
+    Firestore_Database questionclass = Firestore_Database();
+    List _questionBank = await questionclass.getquestion(widget.mode);
+    if (_questionBank.isNotEmpty) {
+      questions_items = _questionBank;
+    } else {
+      final String response = await rootBundle
+          .loadString('assets/questions/easy-level-questions.json');
+      final bank = await json.decode(response);
       questions_items = bank[widget.mode];
+    }
+    setState(() {
       _max_question = questions_items.length;
       generateUniqueRandomNumbers(questions_items.length);
       _try_again_lifeline = prefs.getInt('tryagainlifeline')!;
       _addtime_lifeline = prefs.getInt('addtimelifeline')!;
       _skip_quesion_lifeline = prefs.getInt('skipquestion')!;
       _freeze_time_lifeline = prefs.getInt('freezetime')!;
-      // print(_try_again_lifeline.toString()+"sdfsdfdsfsdfsdf");
     });
+    _showchoiceDialog(context);
   }
 
   Future<void> _Game_finsih_Dialogbox(BuildContext context) async {
-    prefs.setInt('coins', prefs.getInt('coins')! + _points);
     return showDialog(
         context: context,
         builder: (BuildContext contexts) {
-          return WillPopScope(
-            onWillPop: () async {
-              Navigator.popUntil(context, ModalRoute.withName('/Main_Page'));
-              // Navigator.popAndPushNamed(context, '/Main_Page');
+          return Consumer(
+            builder: (contexts, ref, child) {
+              print("conuser called");
+              final totalCoins = ref.watch(TotalCoins);
 
-              return true;
-            },
-            child: AlertDialog(
-              title: const Text("Game Over!!!!"),
-              content: Container(
-                height: 200,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Correct Answer " + _points.toString()),
-                    Text("Coins  Earned " + _points.toString()),
-                    Column(
-                      spacing: 10,
+              return PopScope(
+                onPopInvokedWithResult: (didpop, result) {
+                  if (didpop) {
+                    // User already popped (default behavior), usually you don’t need extra code here
+                    return;
+                  }
+                  ref.read(TotalCoins.notifier).updateCoins(totalCoins + _points);
+                  Navigator.popUntil(
+                      context, ModalRoute.withName('/Main_Page'));
+                  // Navigator.popAndPushNamed(context, '/Main_Page');
+                },
+                child: AlertDialog(
+                  title: const Text("Game Over!!!!"),
+                  content: Container(
+                    height: 200,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        FilledButton(
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Colors.deepOrange)),
-                            onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              "Play Again",
-                              style: TextStyle(
-                                  fontFamily: 'RubikDoodleShadow',
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            )),
-                        FilledButton(
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Colors.deepOrange)),
-                            onPressed: () {
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Main_Page()),
-                                (route) => false,
-                              );
-                              // Navigator.pop(context);
-                              // Navigator.popUntil(context,ModalRoute.withName('/Main_Page'));
+                        Text("Correct Answer " + _points.toString()),
+                        Text("Coins  Earned " + _points.toString()),
+                        Column(
+                          spacing: 10,
+                          children: [
+                            FilledButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Colors.deepOrange)),
+                                onPressed: () {
+                                  ref.read(TotalCoins.notifier).updateCoins(totalCoins + _points);
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
+                                child: const Text(
+                                  "Play Again",
+                                  style: TextStyle(
+                                      fontFamily: 'RubikDoodleShadow',
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                )),
+                            FilledButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Colors.deepOrange)),
+                                onPressed: () {
+                                  ref.read(TotalCoins.notifier).updateCoins(totalCoins + _points);
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const Main_Page()),
+                                    (route) => false,
+                                  );
+                                  // Navigator.pop(context);
+                                  // Navigator.popUntil(context,ModalRoute.withName('/Main_Page'));
 
-                              // Navigator.popAndPushNamed(context, '/Main_Page');
-                            },
-                            child: const Text(
-                              "Exit",
-                              style: TextStyle(
-                                  fontFamily: 'RubikDoodleShadow',
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            )),
+                                  // Navigator.popAndPushNamed(context, '/Main_Page');
+                                },
+                                child: const Text(
+                                  "Exit",
+                                  style: TextStyle(
+                                      fontFamily: 'RubikDoodleShadow',
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                )),
+                          ],
+                        ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           );
         });
   }
 
   Future<void> _Try_AgainDialogBox(BuildContext context) async {
+    SoundEffect().cancelTimerSound();
     return showDialog(
         context: context,
         builder: (BuildContext contexts) {
@@ -950,6 +995,7 @@ class _Question_PageState extends State<Question_Page>
                                     WidgetStateProperty.all(Colors.deepOrange)),
                             onPressed: () {
                               Navigator.pop(context);
+                              SoundEffect().cancelTimerSound();
                               _Game_finsih_Dialogbox(context);
                             },
                             child: const Text(
@@ -1044,5 +1090,32 @@ class _Question_PageState extends State<Question_Page>
             ),
           );
         });
+  }
+
+  void freezeTimeBonusActived() {
+    _toggleContainer();
+    if (_freeze_time_lifeline != 0) {
+      SoundEffect().pauseTimerSound();
+      setState(() {
+        _freeze_time_lifeline--;
+        _timer.cancel();
+        _freezetimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+          setState(() {
+            _timer.cancel();
+            if (_freezetime > 0) {
+              _freezetime--;
+            } else {
+              SoundEffect().pauseTimerSound();
+              // Timer will be canceled once it reached 0
+              _freezetimer?.cancel();
+              _freezetime = 5;
+              startTimer();
+            }
+          });
+        });
+      });
+
+      prefs.setInt("freezetime", _freeze_time_lifeline);
+    }
   }
 }

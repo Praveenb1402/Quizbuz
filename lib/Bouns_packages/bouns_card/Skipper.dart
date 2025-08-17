@@ -4,6 +4,7 @@ import 'package:quizbuz/RiverPod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../NoCoinsDialogBox.dart';
+import '../../SoundEffect/ClickSounds.dart';
 
 class Skipper extends StatefulWidget {
   Skipper({super.key});
@@ -32,7 +33,8 @@ class _SkipperState extends State<Skipper> {
           const Text("Skipper"),
           Consumer(builder: (context, ref, child) {
             final _bonusCount = ref.watch(BonusRiverpod).skipper;
-            return Text("Total Owned: $_bonusCount");
+            return Text("Total Owned: $_bonusCount",
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold));
           }),
           const Text(
             "It skips the question to the next one",
@@ -102,8 +104,9 @@ class _SkipperState extends State<Skipper> {
     final _totalCoins = ref.watch(TotalCoins);
     int _buycount = int.parse(_bonus_controller.text);
     if (_totalCoins >= (_buycount * 10)) {
-      ref.read(TotalCoins.notifier).updateCoins(_totalCoins - _buycount * 10);
+      ref.read(TotalCoins.notifier).updateCoins(_totalCoins - _buycount * 5);
       ref.read(BonusRiverpod.notifier).updateSkipBonus(_buycount);
+      SoundEffect().bonusBoughtSound();
     } else {
       NoCoinsDialogBox().showNoCoinsDialogBox(context);
     }

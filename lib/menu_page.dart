@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:quizbuz/Bouns_packages/BounsNotifier.dart';
 import 'package:quizbuz/Bouns_packages/booster_page.dart';
 import 'package:quizbuz/Buy%20coins/buy_coins_main_page.dart';
@@ -125,9 +124,10 @@ class Main_PageState extends ConsumerState<Main_Page> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
+                                        showBottomSheetToast(context);
                                         SoundEffect().playSound();
-                                        Navigator.popAndPushNamed(
-                                            context, '/Kids_Main_Page');
+                                        // Navigator.popAndPushNamed(
+                                        //     context, '/Kids_Main_Page');
                                       },
                                       child: Container(
                                         width: 50,
@@ -172,8 +172,7 @@ class Main_PageState extends ConsumerState<Main_Page> {
                                       BorderRadius.all(Radius.circular(20)),
                                   color: Colors.white),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                spacing: 20,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Container(
@@ -190,27 +189,30 @@ class Main_PageState extends ConsumerState<Main_Page> {
                                       height: 20,
                                     ),
                                   ),
-                                  Consumer(
-                                    builder: (context, ref, child) {
-                                      final _totalCoins = ref.watch(TotalCoins);
-                                      return Text(
-                                        _totalCoins.toString(),
-                                        textAlign: TextAlign.center,
-                                      );
-                                    },
+                                  Center(
+                                    child: Consumer(
+                                      builder: (context, ref, child) {
+                                        final _totalCoins = ref.watch(TotalCoins);
+                                        return Text(
+                                          _totalCoins.toString(),
+                                          textAlign: TextAlign.center,
+                                        );
+                                      },
+                                    ),
                                   ),
-                                  IconButton(
-                                    alignment: Alignment.center,
-                                    color: Colors.grey,
-                                    onPressed: () {
-                                      SoundEffect().playSound();
-                                      Navigator.push(context, MaterialPageRoute(
-                                          builder: (BuildContext context) {
-                                        return const buy_coins_main_page();
-                                      }));
-                                    },
-                                    icon: const Icon(Icons.add_box),
-                                  ),
+                                  // IconButton(
+                                  //   alignment: Alignment.center,
+                                  //   color: Colors.grey,
+                                  //   onPressed: () {
+                                  //
+                                  //     SoundEffect().playSound();
+                                  //     Navigator.push(context, MaterialPageRoute(
+                                  //         builder: (BuildContext context) {
+                                  //       return const buy_coins_main_page();
+                                  //     }));
+                                  //   },
+                                  //   icon: const Icon(Icons.add_box),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -330,5 +332,19 @@ class Main_PageState extends ConsumerState<Main_Page> {
         _total_coins = 0;
       }
     });
+  }
+
+  void showBottomSheetToast(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Coming Soon"),
+        duration: Duration(seconds: 4), // how long it shows
+        behavior: SnackBarBehavior.floating, // makes it float like a toast
+        margin: EdgeInsets.only(bottom: 20, left: 20, right: 20), // adjust position
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+    );
   }
 }

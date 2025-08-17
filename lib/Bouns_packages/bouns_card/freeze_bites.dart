@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quizbuz/SoundEffect/ClickSounds.dart';
 import '../../NoCoinsDialogBox.dart';
 import '../../RiverPod.dart';
 
@@ -30,7 +31,7 @@ class _FreezeStateState extends State<FreezeState> {
           Consumer(builder: (context, ref, child) {
             int _bonusCount = ref.watch(BonusRiverpod).freezeBite;
             print(ref.watch(BonusRiverpod).freezeBite);
-            return Text("Total Owned: $_bonusCount ");
+            return Text("Total Owned: $_bonusCount ", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold));
           }),
           const Text(
             "It Freezes the timer for 5 seconds",
@@ -102,6 +103,7 @@ class _FreezeStateState extends State<FreezeState> {
     if (_totalCoins >= (_buycount * 10)) {
       ref.read(TotalCoins.notifier).updateCoins(_totalCoins - _buycount * 10);
       ref.read(BonusRiverpod.notifier).updateFreezeBite(_buycount);
+      SoundEffect().bonusBoughtSound();
     } else {
       NoCoinsDialogBox().showNoCoinsDialogBox(context);
     }

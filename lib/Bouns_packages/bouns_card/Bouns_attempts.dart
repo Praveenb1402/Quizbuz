@@ -4,6 +4,7 @@ import 'package:quizbuz/RiverPod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../NoCoinsDialogBox.dart';
+import '../../SoundEffect/ClickSounds.dart';
 
 class BonusAttempts extends StatefulWidget {
   BonusAttempts({super.key});
@@ -45,7 +46,7 @@ class _BonusAttemptsState extends State<BonusAttempts> {
           const Flexible(child: Text("Bonus Attempts")),
           Consumer(builder: (context, ref, child) {
             final bonusCount = ref.watch(BonusRiverpod).tryAgain;
-            return Text("Total Owned: $bonusCount");
+            return Text("Total Owned: $bonusCount" ,style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold));
           }),
           const Expanded(
             child: Text(
@@ -120,6 +121,7 @@ class _BonusAttemptsState extends State<BonusAttempts> {
     if (_totalCoins >= (buyCount * 10)) {
       ref.read(TotalCoins.notifier).updateCoins(_totalCoins - buyCount * 10);
       ref.read(BonusRiverpod.notifier).updateTryAgainBonus(buyCount);
+      SoundEffect().bonusBoughtSound();
     } else {
       NoCoinsDialogBox().showNoCoinsDialogBox(context);
     }
