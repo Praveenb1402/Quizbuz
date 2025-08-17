@@ -15,3 +15,6 @@ final SoundEffectRiverPod =
     StateNotifierProvider<SoundStateNotifier, SoundEffectState>((ref) {
   return SoundStateNotifier();
 });
+
+final didYouKnowProvider = StateProvider<List<dynamic>>((ref) => []);
+final didYouKnowFact = StateProvider<String>((ref) => "");

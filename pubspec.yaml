@@ -46,6 +46,7 @@ dependencies:
   flutter_riverpod: ^2.6.1
   riverpod:
   just_audio: ^0.10.4
+  firebase_remote_config: ^5.1.0
 
 dev_dependencies:
   flutter_test:

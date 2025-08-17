@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,18 +17,25 @@ import 'SoundEffect/ClickSounds.dart';
 import 'gesture_buttons/gest_quiz.dart';
 import 'gesture_buttons/gest_timebuzz.dart';
 
-class Main_Page extends ConsumerStatefulWidget {
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+List<String>? factList;
+String factshown = '';
+
+class Main_Page extends StatefulWidget {
   const Main_Page({super.key});
 
   @override
-  ConsumerState<Main_Page> createState() => Main_PageState();
+  State<Main_Page> createState() => Main_PageState();
 }
 
-class Main_PageState extends ConsumerState<Main_Page> {
+class Main_PageState extends State<Main_Page> with RouteAware {
   final _page_controller = PageController();
   double _total_coins = 0;
   late BannerAd _bannerAd;
   bool isAdloaded = false;
+  List<String>? didYouKnowFactList;
+
+  WidgetRef? gref;
 
   initBannerAds() {
     _bannerAd = BannerAd(
@@ -51,6 +60,23 @@ class Main_PageState extends ConsumerState<Main_Page> {
     initBannerAds();
     CoinsNotifier();
     Bounsnotifier();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)! as PageRoute);
+  }
+
+  @override
+  void didPopNext() {
+    getRandomFact([]);
+    gref?.read(didYouKnowFact.notifier).state = factshown;
+  }
+  @override
+  void didPushNext() {
+    getRandomFact([]);
+    gref?.read(didYouKnowFact.notifier).state = factshown;
   }
 
   @override
@@ -172,7 +198,7 @@ class Main_PageState extends ConsumerState<Main_Page> {
                                       BorderRadius.all(Radius.circular(20)),
                                   color: Colors.white),
                               child: Row(
-                                spacing: 20,
+                                spacing: 10,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Container(
@@ -192,7 +218,8 @@ class Main_PageState extends ConsumerState<Main_Page> {
                                   Center(
                                     child: Consumer(
                                       builder: (context, ref, child) {
-                                        final _totalCoins = ref.watch(TotalCoins);
+                                        final _totalCoins =
+                                            ref.watch(TotalCoins);
                                         return Text(
                                           _totalCoins.toString(),
                                           textAlign: TextAlign.center,
@@ -200,19 +227,18 @@ class Main_PageState extends ConsumerState<Main_Page> {
                                       },
                                     ),
                                   ),
-                                  // IconButton(
-                                  //   alignment: Alignment.center,
-                                  //   color: Colors.grey,
-                                  //   onPressed: () {
-                                  //
-                                  //     SoundEffect().playSound();
-                                  //     Navigator.push(context, MaterialPageRoute(
-                                  //         builder: (BuildContext context) {
-                                  //       return const buy_coins_main_page();
-                                  //     }));
-                                  //   },
-                                  //   icon: const Icon(Icons.add_box),
-                                  // ),
+                                  IconButton(
+                                    alignment: Alignment.center,
+                                    color: Colors.grey,
+                                    onPressed: () {
+                                      SoundEffect().playSound();
+                                      Navigator.push(context, MaterialPageRoute(
+                                          builder: (BuildContext context) {
+                                        return const buy_coins_main_page();
+                                      }));
+                                    },
+                                    icon: const Icon(Icons.add_box),
+                                  ),
                                 ],
                               ),
                             ),
@@ -271,22 +297,6 @@ class Main_PageState extends ConsumerState<Main_Page> {
                         ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(left: 9, right: 9),
-                      decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          color: Colors.white),
-                      child: Column(
-                        children: [
-                          const Text("Did You Know",
-                              textAlign: TextAlign.center),
-                          const Text(
-                            "......Did You Know Text......",
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
                     Row(
                       children: [
                         Container(
@@ -316,6 +326,32 @@ class Main_PageState extends ConsumerState<Main_Page> {
                 ),
               ]),
             ),
+            Consumer(builder: (context, ref, child) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Future.delayed(const Duration(seconds: 30), () {
+                  getRandomFactF(ref);
+                });
+              });
+
+              return Visibility(
+                visible: ref.watch(didYouKnowProvider).isNotEmpty,
+                child: Container(
+                  padding: EdgeInsets.only(left: 9, right: 9),
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.white),
+                  child: Column(
+                    children: [
+                      const Text("Did You Know", textAlign: TextAlign.center),
+                      Text(
+                        factshown,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }),
           ],
         ),
       ),
@@ -338,13 +374,56 @@ class Main_PageState extends ConsumerState<Main_Page> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text("Coming Soon"),
-        duration: Duration(seconds: 4), // how long it shows
-        behavior: SnackBarBehavior.floating, // makes it float like a toast
-        margin: EdgeInsets.only(bottom: 20, left: 20, right: 20), // adjust position
+        duration: Duration(seconds: 4),
+        // how long it shows
+        behavior: SnackBarBehavior.floating,
+        // makes it float like a toast
+        margin: EdgeInsets.only(bottom: 20, left: 20, right: 20),
+        // adjust position
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
       ),
     );
+  }
+
+  void getRandomFactF(WidgetRef ref) {
+    final facts = ref.watch(didYouKnowProvider);
+    if (facts.isEmpty) {
+      Firestore_Database().getFacts(ref);
+    }
+    getRandomFact(facts);
+    // ref.read(didYouKnowFact.notifier).state = getRandomFact(facts);
+  }
+
+  String getRandomFact(List<dynamic> facts) {
+    print("getting called");
+    if (factList == null) {
+      if (facts.isNotEmpty) {
+        final random = Random();
+        int mapLength = facts.length;
+        int number = random.nextInt(mapLength);
+        final randomFact = facts[number]['fact'];
+        print(randomFact);
+
+        setState(() {
+          factshown = randomFact;
+        });
+        return randomFact;
+      } else {
+        return "";
+      }
+    } else {
+      final random = Random();
+      int mapLength = factList!.length;
+      int number = random.nextInt(mapLength);
+
+      final randomFact = facts[number];
+      setState(() {
+        factshown = randomFact;
+      });
+
+      return randomFact;
+    }
   }
 }
